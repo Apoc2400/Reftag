@@ -1,0 +1,60 @@
+application: reftag
+version: 1
+runtime: python
+api_version: 1
+
+handlers:
+- url: /static
+  static_dir: static
+
+- url: /testingjs
+  static_dir: testingjs
+  expiration: 1s
+
+- url: /gb.*
+  script: gb.py
+
+- url: /test.*
+  script: test.py
+
+- url: /getwprender.py
+  script: getwprender.py
+
+- url: /expandtemplates.py
+  script: expandtemplates.py
+
+- url: /wparticleexists.py
+  script: wparticleexists.py
+
+- url: /returnjs.py
+  script: returnjs.py
+
+- url: /googlebooksjs.py
+  script: googlebooksjs.py
+
+- url: /getdiberri.py
+  script: getdiberri.py
+  
+- url: /doifetchjs.py
+  script: doifetchjs.py
+
+- url: /doiweb.py
+  script: doiweb.py
+
+- url: /nytweb.py
+  script: nytweb.py
+
+- url: /urlfetchjs.py
+  script: urlfetchjs.py
+
+- url: /favicon.ico
+  static_files: static/favicon.ico
+  upload: static/favicon.ico
+
+- url: /robots.txt
+  static_files: static/robots.txt
+  upload: static/robots.txt
+
+- url: /
+  script: gb.py
+
