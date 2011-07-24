@@ -10,7 +10,7 @@ function getTime() {
   datestr = citeGlobalDateFormat;
   var DT = new Date();
   var zmonth = '';
-  var month = DT.getUTCMonth()+1;
+  var month = DT.getMonth()+1;
   if (month < 10) {
     zmonth = "0"+month.toString();
   } else {
@@ -18,7 +18,7 @@ function getTime() {
   }
   month = month.toString();
   var zdate = '';
-  var date = DT.getUTCDate()
+  var date = DT.getDate()
   if (date < 10) {
     zdate = "0"+date.toString();
   } else {
@@ -29,8 +29,8 @@ function getTime() {
   datestr = datestr.replace('<month>', month);
   datestr = datestr.replace('<zdate>', zdate);
   datestr = datestr.replace('<zmonth>', zmonth);
-  datestr = datestr.replace('<monthname>', months[DT.getUTCMonth()]);
-  datestr = datestr.replace('<year>', DT.getUTCFullYear().toString());
+  datestr = datestr.replace('<monthname>', months[DT.getMonth()]);
+  datestr = datestr.replace('<year>', DT.getFullYear().toString());
   return (datestr);
 }
 
@@ -275,15 +275,15 @@ function formatDate(datein, dateformat) {
   }
   else if (/^\d\d? \w+ \d\d\d\d$/.test(datein) || /^\w+ \d\d?, \d\d\d\d$/.test(datein)) {
     var DT = new Date(datein);
-    year = DT.getUTCFullYear();
-    month = DT.getUTCMonth()+1;
-    date = DT.getUTCDate()+1;
+    year = DT.getFullYear();
+    month = DT.getMonth()+1;
+    date = DT.getDate();
   }
   else if (datein == 'today') {
     var DT = new Date();
-    year = DT.getUTCFullYear();
-    month = DT.getUTCMonth()+1;
-    date = DT.getUTCDate();
+    year = DT.getFullYear();
+    month = DT.getMonth()+1;
+    date = DT.getDate();
   }
   else {return (datein);}
   //alert('datein=' + datein + ', y=' + year + ', m=' + month + ', d=' + date);
