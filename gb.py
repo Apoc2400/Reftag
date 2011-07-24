@@ -111,7 +111,6 @@ def main():
         exit()
 
     #print "url:", book_url, "<br />"
-    if re.search('^bao\s*bao$', book_url, re.I): error('Puss and bao bao sweety!')
     if not re.search('books.google.', book_url, re.I) and not re.search('\?id=', book_url, re.I):
         error('Not a Google Books URL.')
     urlsep = re.search('\?([^#]*)', book_url)
