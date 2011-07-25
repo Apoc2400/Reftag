@@ -37,7 +37,7 @@ import sys
 
 def printFooter():
     print """<hr>
-    <small>Made by <a href="http://en.wikipedia.org/wiki/User:Apoc2400">Apoc2400</a>. Send feedback to apoc2400 (at) gmail.com or <a href="http://en.wikipedia.org/wiki/User_talk:Apoc2400">my talk page</a>. Using some html and js from <a href="http://en.wikipedia.org/wiki/User:Mr.Z-man/refToolbar">refToolbar</a> by Mr.Z-man. <a href="http://www.marklets.com/Bookmarklets/RefTag.aspx">Bookmarklet</a> for direct access from Google Books.</small>
+    <small>Made by <a href="http://en.wikipedia.org/wiki/User:Apoc2400">Apoc2400</a>. Send feedback to apoc2400 (at) gmail.com or <a href="http://en.wikipedia.org/wiki/User_talk:Apoc2400">my talk page</a>. Using some html and js from <a href="http://en.wikipedia.org/wiki/User:Mr.Z-man/refToolbar">refToolbar</a> by Mr.Z-man. <a href="http://www.marklets.com/Bookmarklets/RefTag.aspx">Bookmarklet</a> for direct access from Google Books. <a href="https://github.com/Apoc2400/Reftag">Source code</a> in Python.</small>
     """
     print "</body></html>"
 
