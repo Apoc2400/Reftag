@@ -12,6 +12,7 @@ import gdata.service
 import gdata.alt.appengine
 import gdata.books
 import gdata.books.service
+from isbn_hyphenate.isbn_hyphenate import try_hyphenate, IsbnError
 
 import cgi
 import cgitb; cgitb.enable()
@@ -189,6 +190,11 @@ def main():
             else:
                 other_id_list.append(idpair[0] + ':' + idpair[1])
 
+    if isbn:
+        try:
+            isbn = try_hyphenate(isbn)
+        except IsbnError:
+            pass    #Keep the currect value of isbn
 
     other_id = ', '.join(other_id_list)
     if len(other_id):
