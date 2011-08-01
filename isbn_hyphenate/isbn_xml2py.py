@@ -36,6 +36,11 @@ for group in ISBNRangeMessage.getElementsByTagName("RegistrationGroups")[0].getE
     (prefix, lengthMap) = parsePrefixLengthMap(group)
     publisher_length[prefix] = lengthMap
 
-print '# Generated with isbn_xml2py.py'
+messageSerial = getText(ISBNRangeMessage.getElementsByTagName("MessageSerialNumber")[0])
+messageDate = getText(ISBNRangeMessage.getElementsByTagName("MessageDate")[0])
+
+print '# Generated from RangeMessage.xml with isbn_xml2py.py'
+print '# MessageDate: ' + messageDate
+print '# MessageSerialNumber: ' + messageSerial
 print 'groups_length = ' + repr(groups_length)
 print 'publisher_length = ' + repr(publisher_length)
