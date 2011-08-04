@@ -45,16 +45,16 @@ class BadInput(unittest.TestCase):
 
 
     def testUnknownPrefix(self):                                          
-        self.assertRaises(isbn_hyphenate.IsbnDoesNotExistError, isbn_hyphenate.hyphenate, "9751402894626")
+        self.assertRaises(isbn_hyphenate.IsbnUnableToHyphenateError, isbn_hyphenate.hyphenate, "9751402894626")
 
     def testUnusedPrefix(self):                                          
-        self.assertRaises(isbn_hyphenate.IsbnDoesNotExistError, isbn_hyphenate.hyphenate, "9786500042626")
+        self.assertRaises(isbn_hyphenate.IsbnUnableToHyphenateError, isbn_hyphenate.hyphenate, "9786500042626")
 
     def testUnknownPrefix2(self):                                          
-        self.assertRaises(isbn_hyphenate.IsbnDoesNotExistError, isbn_hyphenate.hyphenate, "9789999999626")
+        self.assertRaises(isbn_hyphenate.IsbnUnableToHyphenateError, isbn_hyphenate.hyphenate, "9789999999626")
 
     def testUnusedPrefix2(self):                                          
-        self.assertRaises(isbn_hyphenate.IsbnDoesNotExistError, isbn_hyphenate.hyphenate, "9789927512300")
+        self.assertRaises(isbn_hyphenate.IsbnUnableToHyphenateError, isbn_hyphenate.hyphenate, "9789927512300")
 
     def testTryUnknownPrefix(self):                                          
         isbnUnknown = "9751402894626"

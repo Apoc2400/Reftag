@@ -93,7 +93,7 @@ def main():
         dateformat = 'dmy'
 
 
-    print  """<h1>{<font color="red">T</font>} Wikipedia citation tool for Google Books</h1>
+    print  """<h1><a href="/" style="text-decoration: none; color: black">{<font color="red">T</font>} Wikipedia citation tool for Google Books</a></h1>
               <font color="DarkOliveGreen">1: Find a book you want to cite on <a href="http://books.google.com/" target="_blank">Google Books</a>. 
           Copy the URL of the book from the address bar, and paste it below. Then press "Load". <a href="http://books.google.com/books?id=aqmAc2fFsAUC&pg=PA90" target="_blank">Example book</a>.</font>
           <form action="" method="get">

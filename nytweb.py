@@ -24,7 +24,7 @@ def main():
         <link rel="shortcut icon" href="/favicon.ico" />
 
         </head><body style="font-family: sans-serif; font-size:0.79375em">
-        <h1>{<font color="red">T</font>} New York Times Wikipedia reference generator</h1>
+        <h1><a href="/nytweb.py" style="text-decoration: none; color: black">{<font color="red">T</font>} New York Times Wikipedia reference generator</a></h1>
         """
 
 
