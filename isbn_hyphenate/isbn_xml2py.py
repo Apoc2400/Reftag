@@ -1,5 +1,6 @@
-import xml.dom.minidom
+#!/usr/bin/env python
 
+import xml.dom.minidom
 
 def getText(startnode):
     rc = ""

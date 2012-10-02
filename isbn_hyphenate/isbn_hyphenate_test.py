@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """Unit test for isbn_hyphenate.py"""
 
 import isbn_hyphenate
