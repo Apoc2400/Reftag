@@ -6,7 +6,7 @@ class IsbnError(Exception): pass
 # ISBN is malformed, such as too short, too long or contains invalid characters
 class IsbnMalformedError(IsbnError): pass
 
-# Unable to hyphenate is ISBN. Either it does not exist, or 
+# Unable to hyphenate is ISBN. Either it does not exist, or
 # the ranges information used by this library is out of date
 class IsbnUnableToHyphenateError(IsbnError): pass
 
