@@ -1,6 +1,7 @@
 isbn_hyphenate is a Python library to add hyphens in the right place to an ISBN (International Standard Book Number). Example:
->>> isbn_hyphenate.hyphenate("9781590593561")
-'978-1-59059-356-1'
+	>>> import isbn_hyphenate
+    >>> isbn_hyphenate.hyphenate("9781590593561")
+    '978-1-59059-356-1'
 
 Most libraries for handling ISBNs can not do hyphenation because it requires using a list of prefixes, available from the International ISBN Agency.
 
