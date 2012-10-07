@@ -17,8 +17,8 @@
 ]>
 <ISBNRangeMessage>
 <MessageSource>International ISBN Agency</MessageSource>
-<MessageSerialNumber>fc2555ef-ab50-4d0a-a1ea-435595a65fd1</MessageSerialNumber>
-<MessageDate>Wed, 26 Sep 2012 18:42:24 GMT</MessageDate>
+<MessageSerialNumber>83fb1c02-4ca5-489d-817b-d2fbcbb2cee0</MessageSerialNumber>
+<MessageDate>Wed, 03 Oct 2012 13:39:30 GMT</MessageDate>
   <EAN.UCCPrefixes>
     <EAN.UCC>
       <Prefix>978</Prefix>
@@ -2527,8 +2527,12 @@
       <Agency>Hong Kong, China</Agency>
       <Rules>
         <Rule>
-          <Range>0000000-1499999</Range>
+          <Range>0000000-1199999</Range>
           <Length>2</Length>
+        </Rule>
+        <Rule>
+          <Range>1200000-1499999</Range>
+          <Length>5</Length>
         </Rule>
         <Rule>
           <Range>1500000-1699999</Range>

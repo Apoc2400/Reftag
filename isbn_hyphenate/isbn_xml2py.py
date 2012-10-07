@@ -41,6 +41,7 @@ messageSerial = getText(ISBNRangeMessage.getElementsByTagName("MessageSerialNumb
 messageDate = getText(ISBNRangeMessage.getElementsByTagName("MessageDate")[0])
 
 print '# Generated from RangeMessage.xml with isbn_xml2py.py'
+print '# Available from http://www.isbn-international.org/agency?rmxml=1'
 print '# MessageDate: ' + messageDate
 print '# MessageSerialNumber: ' + messageSerial
 print 'groups_length = ' + repr(groups_length)

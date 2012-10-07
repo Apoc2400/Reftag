@@ -10,7 +10,7 @@ class IsbnMalformedError(IsbnError): pass
 # the ranges information used by this library is out of date
 class IsbnUnableToHyphenateError(IsbnError): pass
 
- 
+
 def hyphenate(input):
     """Add hyphens to an International Standard Book Number (ISBN)
     
