@@ -11,17 +11,16 @@ def error(message):
     print 'Content-Type: text/plain'
     print ''
     print 'Error: ', message
-    exit()
 
  
 def main():
     form = cgi.FieldStorage()
     if (not form.has_key("url")):
-        error('No URL.')
+        error('No URL.'); return
     url = form["url"].value
 
     if (not form.has_key("callback")):
-        error('No callback.')
+        error('No callback.'); return
     callback = form["callback"].value
  
     if re.search('^http:\/\/[^\/]*nytimes\.com\/', url, re.I):
