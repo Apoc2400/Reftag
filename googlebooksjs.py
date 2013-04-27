@@ -42,7 +42,6 @@ def error(message):
     print 'Content-Type: text/plain'
     print ''
     print 'Error: ', message
-    exit()
 
 
 def main():
@@ -51,10 +50,12 @@ def main():
     form = cgi.FieldStorage()
     if (not form.has_key("book_url")):
         error('No URL.')
+        return
     book_url = form["book_url"].value
 
     if (not form.has_key("callback")):
         error('No callback.')
+        return
     callback = form["callback"].value
 
     memcache_key = '5:' + os.environ['CURRENT_VERSION_ID'] + '/' + callback + ':' + book_url
@@ -64,7 +65,7 @@ def main():
         print 'Content-Type: text/javascript'
         print ''
         print memcache_jsonp
-        exit();
+        return
     else:
         #print >> sys.stderr, "From fetch: " + memcache_key
         pass
@@ -89,15 +90,18 @@ def main():
 
     if not re.search('books.google.', book_url, re.I) and not re.search('\?id=', book_url, re.I):
         error('Not a Google Books URL.')
+        return
     urlsep = re.search('\?([^#]*)', book_url)
     if not urlsep:
         error('Bad URL.')
+        return
 
     book_url_qs = urlsep.group(1)
     book_url_qs_fields = cgi.parse_qs(book_url_qs)
 
     if not book_url_qs_fields.has_key("id"):
         error('Bad URL. It has to be for a specific book, not a search result page')
+        return
     book_id = book_url_qs_fields["id"][0]
     page = ''
     page_string = '';
@@ -175,7 +179,6 @@ def main():
     print jsonp
 
     memcache.add(memcache_key, jsonp, 3600)
-    exit();
 
 
 if __name__ == "__main__":
