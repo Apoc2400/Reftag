@@ -1,8 +1,10 @@
 #!/usr/bin/env python
-"""Unit test for isbn_hyphenate.py"""
+"""Unit tests for isbn_hyphenate.py"""
 
+from __future__ import absolute_import, print_function, unicode_literals
 import isbn_hyphenate
 import unittest
+import sys
 
 class KnownValues(unittest.TestCase):
     knownValues = ( "99921-58-10-7",
@@ -22,48 +24,64 @@ class KnownValues(unittest.TestCase):
                     "978-1-4028-9462-6",
                     "978-99953-838-2-4",
                     "978-99930-75-89-9",
+                    "978-1-59059-356-1",
                   )
 
-    def testHyphenatingKnownValues(self):
+    def test_hyphenating_known_values(self):
         for with_hyphens in self.knownValues:
             without_hyphens = with_hyphens.replace('-', '')
             self.assertEqual(isbn_hyphenate.hyphenate(without_hyphens), with_hyphens)
             
-    def testTryHyphenatingKnownValues(self):
+    def test_try_hyphenating_known_values(self):
         for with_hyphens in self.knownValues:
             without_hyphens = with_hyphens.replace('-', '')
             self.assertEqual(isbn_hyphenate.try_hyphenate(without_hyphens), with_hyphens)
 
+    # Only test non-unicode if Python2
+    if sys.version_info < (3,0,0):
+        def test_hyphenating_known_values_not_unicode(self):
+            for with_hyphens in self.knownValues:
+                without_hyphens = with_hyphens.replace('-', '')
+                without_hyphens_ascii = without_hyphens.encode("ascii")
+                self.assertEqual(isbn_hyphenate.hyphenate(without_hyphens_ascii), with_hyphens.encode("ascii"))
 
-class BadInput(unittest.TestCase):                            
-    def testBadCharacters(self):                                          
+
+class BadInput(unittest.TestCase):
+    def test_bad_characters(self):
         self.assertRaises(isbn_hyphenate.IsbnMalformedError, isbn_hyphenate.hyphenate, "fghdf hdfjhfgj")
-    def testTryBadCharacters(self):                                          
+    def test_bad_characters2(self):
+        self.assertRaises(isbn_hyphenate.IsbnMalformedError, isbn_hyphenate.hyphenate, "085131ffff")
+    def test_bad_charactersX(self):
+        self.assertRaises(isbn_hyphenate.IsbnMalformedError, isbn_hyphenate.hyphenate, "X604250590")
+        self.assertRaises(isbn_hyphenate.IsbnMalformedError, isbn_hyphenate.hyphenate, "960X250590")
+        self.assertRaises(isbn_hyphenate.IsbnMalformedError, isbn_hyphenate.hyphenate, "96042X0590")
+    def test_try_bad_characters(self):
         self.assertRaises(isbn_hyphenate.IsbnMalformedError, isbn_hyphenate.try_hyphenate, "fghdf hdfjhfgj")
 
-    def testTooShort(self):                                          
+    def test_try_bad_non_ascii_character(self):
+        self.assertRaises(isbn_hyphenate.IsbnMalformedError, isbn_hyphenate.try_hyphenate, "9971\u260302100")
+
+    def test_too_short(self):
         self.assertRaises(isbn_hyphenate.IsbnMalformedError, isbn_hyphenate.hyphenate, "12345")
 
-
-    def testUnknownPrefix(self):                                          
+    def test_unknown_prefix(self):
         self.assertRaises(isbn_hyphenate.IsbnUnableToHyphenateError, isbn_hyphenate.hyphenate, "9751402894626")
 
-    def testUnusedPrefix(self):                                          
+    def test_unused_prefix(self):
         self.assertRaises(isbn_hyphenate.IsbnUnableToHyphenateError, isbn_hyphenate.hyphenate, "9786500042626")
 
-    def testUnknownPrefix2(self):                                          
+    def test_unknown_prefix2(self):
         self.assertRaises(isbn_hyphenate.IsbnUnableToHyphenateError, isbn_hyphenate.hyphenate, "9789999999626")
 
-    def testUnusedPrefix2(self):                                          
+    def test_unused_prefix2(self):
         self.assertRaises(isbn_hyphenate.IsbnUnableToHyphenateError, isbn_hyphenate.hyphenate, "9789927512300")
 
-    def testTryUnknownPrefix(self):                                          
-        isbnUnknown = "9751402894626"
-        self.assertEqual(isbn_hyphenate.try_hyphenate(isbnUnknown), isbnUnknown)
+    def test_try_unknown_prefix(self):
+        isbn_unknown = "9751402894626"
+        self.assertEqual(isbn_hyphenate.try_hyphenate(isbn_unknown), isbn_unknown)
 
-    def testEmptyInput(self):                                          
+    def test_empty_input(self):
         self.assertRaises(isbn_hyphenate.IsbnMalformedError, isbn_hyphenate.hyphenate, "")
 
 
-if __name__ == '__main__':
-    unittest.main()
+unittest.main()

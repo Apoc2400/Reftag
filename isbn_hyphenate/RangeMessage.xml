@@ -17,8 +17,8 @@
 ]>
 <ISBNRangeMessage>
 <MessageSource>International ISBN Agency</MessageSource>
-<MessageSerialNumber>83fb1c02-4ca5-489d-817b-d2fbcbb2cee0</MessageSerialNumber>
-<MessageDate>Wed, 03 Oct 2012 13:39:30 GMT</MessageDate>
+<MessageSerialNumber>f8ffdaf3-898f-4dae-ad5c-8d9ba4915179</MessageSerialNumber>
+<MessageDate>Mon, 03 Dec 2012 15:45:22 GMT</MessageDate>
   <EAN.UCCPrefixes>
     <EAN.UCC>
       <Prefix>978</Prefix>
@@ -67,11 +67,11 @@
           <Length>0</Length>
         </Rule>
         <Rule>
-          <Range>1000000-1099999</Range>
+          <Range>1000000-1199999</Range>
           <Length>2</Length>
         </Rule>
         <Rule>
-          <Range>1100000-9999999</Range>
+          <Range>1200000-9999999</Range>
           <Length>0</Length>
         </Rule>
       </Rules>
@@ -411,8 +411,16 @@
       <Agency>Indonesia</Agency>
       <Rules>
         <Rule>
-          <Range>0000000-1799999</Range>
+          <Range>0000000-1499999</Range>
           <Length>2</Length>
+        </Rule>
+        <Rule>
+          <Range>1500000-1699999</Range>
+          <Length>4</Length>
+        </Rule>
+        <Rule>
+          <Range>1700000-1799999</Range>
+          <Length>5</Length>
         </Rule>
         <Rule>
           <Range>1800000-1899999</Range>
@@ -807,6 +815,40 @@
         <Rule>
           <Range>0000000-9999999</Range>
           <Length>1</Length>
+        </Rule>
+      </Rules>
+    </Group>
+    <Group>
+      <Prefix>978-621</Prefix>
+      <Agency>Philippines</Agency>
+      <Rules>
+        <Rule>
+          <Range>0000000-2999999</Range>
+          <Length>2</Length>
+        </Rule>
+        <Rule>
+          <Range>3000000-3999999</Range>
+          <Length>0</Length>
+        </Rule>
+        <Rule>
+          <Range>4000000-5999999</Range>
+          <Length>3</Length>
+        </Rule>
+        <Rule>
+          <Range>6000000-7999999</Range>
+          <Length>0</Length>
+        </Rule>
+        <Rule>
+          <Range>8000000-8999999</Range>
+          <Length>4</Length>
+        </Rule>
+        <Rule>
+          <Range>9000000-9499999</Range>
+          <Length>0</Length>
+        </Rule>
+        <Rule>
+          <Range>9500000-9999999</Range>
+          <Length>5</Length>
         </Rule>
       </Rules>
     </Group>
@@ -1206,7 +1248,7 @@
         </Rule>
         <Rule>
           <Range>9100000-9399999</Range>
-          <Length>6</Length>
+          <Length>0</Length>
         </Rule>
         <Rule>
           <Range>9400000-9499999</Range>
@@ -1214,7 +1256,7 @@
         </Rule>
         <Rule>
           <Range>9500000-9999999</Range>
-          <Length>6</Length>
+          <Length>0</Length>
         </Rule>
       </Rules>
     </Group>
@@ -1501,8 +1543,12 @@
           <Length>4</Length>
         </Rule>
         <Rule>
-          <Range>2000000-4499999</Range>
+          <Range>2000000-4399999</Range>
           <Length>2</Length>
+        </Rule>
+        <Rule>
+          <Range>4400000-4499999</Range>
+          <Length>5</Length>
         </Rule>
         <Rule>
           <Range>4500000-4999999</Range>
@@ -2342,14 +2388,26 @@
         </Rule>
         <Rule>
           <Range>1200000-1999999</Range>
-          <Length>4</Length>
+          <Length>0</Length>
         </Rule>
         <Rule>
           <Range>2000000-2899999</Range>
           <Length>3</Length>
         </Rule>
         <Rule>
-          <Range>2900000-9999999</Range>
+          <Range>2900000-2999999</Range>
+          <Length>3</Length>
+        </Rule>
+        <Rule>
+          <Range>3000000-3099999</Range>
+          <Length>4</Length>
+        </Rule>
+        <Rule>
+          <Range>3100000-3999999</Range>
+          <Length>3</Length>
+        </Rule>
+        <Rule>
+          <Range>4000000-9999999</Range>
           <Length>4</Length>
         </Rule>
       </Rules>
@@ -5376,6 +5434,32 @@
         </Rule>
         <Rule>
           <Range>9760000-9999999</Range>
+          <Length>6</Length>
+        </Rule>
+      </Rules>
+    </Group>
+    <Group>
+      <Prefix>979-11</Prefix>
+      <Agency>Korea, Republic</Agency>
+      <Rules>
+        <Rule>
+          <Range>0000000-2499999</Range>
+          <Length>2</Length>
+        </Rule>
+        <Rule>
+          <Range>2500000-5499999</Range>
+          <Length>3</Length>
+        </Rule>
+        <Rule>
+          <Range>5500000-8499999</Range>
+          <Length>4</Length>
+        </Rule>
+        <Rule>
+          <Range>8500000-9499999</Range>
+          <Length>5</Length>
+        </Rule>
+        <Rule>
+          <Range>9500000-9999999</Range>
           <Length>6</Length>
         </Rule>
       </Rules>
