@@ -12,8 +12,8 @@ def tearDownModule():
     
 def wait_until_filled(box):
     for i in range(10):
-        content = box.text
-        if content != '':
+        content = box['value'] or box.text
+        if content != '' and content != 'Updating...':
             return content
         time.sleep(1)
     assert 0
@@ -74,15 +74,17 @@ class TestDoiWeb(unittest.TestCase):
         self.assertTrue(browser.is_text_present('title=Survival and cause'))
                 
 class TestGoogleBooks(unittest.TestCase):
+
+    def setUp(self):
+        browser.visit(site)
+        browser.fill('book_url', 'http://books.google.com/books?id=aqmAc2fFsAUC&pg=PA90')
+        browser.find_by_value('Load').click()
+
     def test_start(self):
         browser.visit(site)
         self.assertTrue(browser.is_text_present('Wikipedia citation tool for Google Books'))
     
     def test_flow(self):
-        browser.visit(site)
-        browser.fill('book_url', 'http://books.google.com/books?id=aqmAc2fFsAUC&pg=PA90')
-        browser.find_by_value('Load').click()
-        
         authorbox = browser.find_by_id('author1').first
         self.assertEquals(authorbox['value'], 'Nels Anderson')
         
@@ -96,10 +98,14 @@ class TestGoogleBooks(unittest.TestCase):
         browser.find_by_value('Make citation').first.click()
         self.assertIn('|edition=Foo|', citebox['value'])
         
-        
         browser.find_by_id('authorLinkAnchor1').first.click()
         filled_in = browser.find_by_id('authorlink1').first['value']
         self.assertEquals(filled_in, 'Nels Anderson')
+        
+    def test_plain_wikicode(self):
+        browser.find_by_id('plain').first.click()
+        cite = wait_until_filled(browser.find_by_id('fullcite').first)
+        self.assertIn('University of Chicago Press; 1998', cite)
         
 
 if __name__ == '__main__':

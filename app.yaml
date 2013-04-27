@@ -15,8 +15,8 @@ handlers:
 - url: /gb.*
   script: gb.py
 
-- url: /test.*
-  script: test.py
+#- url: /test.*
+#  script: test.py
 
 - url: /getwprender.py
   script: getwprender.py
@@ -27,14 +27,14 @@ handlers:
 - url: /wparticleexists.py
   script: wparticleexists.py
 
-- url: /returnjs.py
-  script: returnjs.py
+#- url: /returnjs.py
+#  script: returnjs.py
 
 - url: /googlebooksjs.py
   script: googlebooksjs.py
 
-- url: /getdiberri.py
-  script: getdiberri.py
+#- url: /getdiberri.py
+#  script: getdiberri.py
   
 - url: /doifetchjs.py
   script: doifetchjs.py
