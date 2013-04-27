@@ -1,7 +1,7 @@
 import cgi
 import cgitb; cgitb.enable()
 import urllib
-#import urllib2        # Now called inside cachedFetch
+import sys
 import re
 from cachedfetch import cachedFetch
 
@@ -11,20 +11,19 @@ def main():
       print 'Content-Type: text/plain'
       print ''
       print 'No title specified!'
-      exit()
+      return
 
     title = form["title"].value
 
     querystring = urllib.urlencode([('titles', title)])
     url = "http://en.wikipedia.org/w/api.php?action=query&format=yaml&prop=info&" + querystring
-    
     data = cachedFetch(url, 3600)
     if not data == '':
-      if re.search('^\s*pageid: \d+', data, re.MULTILINE):
+      if re.search('pageid"?:\s*\d+', data, re.MULTILINE):
         print 'Content-Type: text/plain'
         print ''
         print '1'
-      elif re.search('^\s*missing:', data, re.MULTILINE):
+      elif re.search('missing"?:\s*', data, re.MULTILINE):
         print 'Content-Type: text/plain'
         print ''
         print '0'
@@ -32,7 +31,7 @@ def main():
         print 'Content-Type: text/plain'
         print ''
         print 'Data error!'
-        exit()
+        return
     else:
       print 'Content-Type: text/html'
       print ''

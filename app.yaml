@@ -1,6 +1,7 @@
 application: reftag
 version: 1
-runtime: python
+runtime: python27
+threadsafe: false
 api_version: 1
 
 handlers:
@@ -58,3 +59,6 @@ handlers:
 - url: /
   script: gb.py
 
+libraries:
+- name: django
+  version: "1.2"

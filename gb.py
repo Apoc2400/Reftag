@@ -5,7 +5,6 @@
 #__author__ = 'Apoc2400'
 
 import wsgiref.handlers
-from google.appengine.ext import webapp
 from google.appengine.api import users
 import atom.url
 import gdata.service
@@ -19,21 +18,6 @@ import cgitb; cgitb.enable()
 import re
 import urllib
 import sys
-
-#import wsgiref.handlers
-#from google.appengine.api import users
-#from google.appengine.ext import webapp
-#from google.appengine.ext import db
-#from google.appengine.api import urlfetch
-#import urllib # Used to unescape URL parameters.
-#import gdata.service
-#import gdata.alt.appengine
-#import gdata.auth
-#import atom
-#import atom.http_interface
-#import atom.token_store
-#import atom.url
-#import settings
 
 
 def printFooter():
@@ -109,7 +93,7 @@ def main():
             <p>Try also: <a href="doiweb.py">Wikipedia citation tool for DOI</a> or <a href="/nytweb.py">The New York Times</a>.<br />
             Also available from a user script: <a href="http://en.wikipedia.org/wiki/Wikipedia:RefToolbarPlus">refToolPlus</a>.</p>"""
         printFooter();
-        exit()
+        return
 
     #print "url:", book_url, "<br />"
     if not re.search('books.google.', book_url, re.I) and not re.search('\?id=', book_url, re.I):

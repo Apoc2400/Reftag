@@ -43,7 +43,7 @@ def main():
         print """<hr><font color="DarkOliveGreen">Example URL (copy and paste above):</font> http://www.nytimes.com/2009/03/26/garden/26slow.html
         <p>Try also: <a href="/">Wikipedia citation tool for Google Books</a> or <a href="/doiweb.py">DOI</a></p>"""
         printFooter();
-        exit()
+        return
 
     url = url.strip()    #Trim whitespace
     url = re.sub('\?.*$', '', url)    #Remove from the question mark

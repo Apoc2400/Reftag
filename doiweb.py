@@ -41,7 +41,7 @@ def main():
         print """<hr><font color="DarkOliveGreen">Example DOI (copy and paste above):</font> 10.1111/j.1600-0404.1986.tb04634.x
         <p>Try also: <a href="/">Wikipedia citation tool for Google Books</a> or <a href="/nytweb.py">The New York Times</a></p>"""
         printFooter();
-        exit()
+        return
 
     doi = doi.strip()    #Trim whitespace
     citedata = doiFetchInfo(doi)
