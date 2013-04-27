@@ -60,8 +60,29 @@ class TestDoiWeb(unittest.TestCase):
         browser.find_by_value('Load').click()
         self.assertTrue(browser.is_text_present('title=Survival and cause'))
                 
+class TestGoogleBooks(unittest.TestCase):
+    def test_start(self):
+        browser.visit(site)
+        self.assertTrue(browser.is_text_present('Wikipedia citation tool for Google Books'))
+    
+    def test_flow(self):
+        browser.visit(site)
+        browser.fill('book_url', 'http://books.google.com/books?id=aqmAc2fFsAUC&pg=PA90')
+        browser.find_by_value('Load').click()
+        
+        authorbox = browser.find_by_id('author1').first
+        self.assertEquals(authorbox['value'], 'Nels Anderson')
+        
+        citebox = browser.find_by_id('fullcite').first
+        self.assertIn('|title=On Hobos', citebox['value'])
+        
+        preview = browser.find_by_id('previewSpan').first.text
+        self.assertIn('Nels Anderson (1998)', preview)
 
-
+        browser.find_by_id('edition').first.fill('Foo')
+        browser.find_by_value('Make citation').first.click()
+        self.assertIn('|edition=Foo|', citebox['value'])
+        
 
 if __name__ == '__main__':
     unittest.main()
