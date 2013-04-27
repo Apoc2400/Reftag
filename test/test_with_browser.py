@@ -88,6 +88,9 @@ class TestGoogleBooks(unittest.TestCase):
         authorbox = browser.find_by_id('author1').first
         self.assertEquals(authorbox['value'], 'Nels Anderson')
         
+        isbn = browser.find_by_id('isbn').first['value']
+        self.assertEquals(isbn, '978-0-226-01966-6')
+        
         citebox = browser.find_by_id('fullcite').first
         self.assertIn('|title=On Hobos', citebox['value'])
         
