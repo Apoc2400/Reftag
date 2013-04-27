@@ -1,11 +1,24 @@
 import unittest
-from splinter import Browser 
+from splinter import Browser
+import time
+
 
 site = "http://localhost:8080/"
+#site = "http://reftag.appspot.com/"
 
 browser = Browser()
 def tearDownModule():
     browser.quit()
+    
+def wait_until_filled(box):
+    for i in range(10):
+        content = box.text
+        if content != '':
+            return content
+        time.sleep(1)
+    assert 0
+    return None
+    
 
 class TestArticleExists(unittest.TestCase):
     subsite = site + "wparticleexists.py"
@@ -76,7 +89,7 @@ class TestGoogleBooks(unittest.TestCase):
         citebox = browser.find_by_id('fullcite').first
         self.assertIn('|title=On Hobos', citebox['value'])
         
-        preview = browser.find_by_id('previewSpan').first.text
+        preview = wait_until_filled(browser.find_by_id('previewSpan').first)
         self.assertIn('Nels Anderson (1998)', preview)
 
         browser.find_by_id('edition').first.fill('Foo')
@@ -87,7 +100,6 @@ class TestGoogleBooks(unittest.TestCase):
         browser.find_by_id('authorLinkAnchor1').first.click()
         filled_in = browser.find_by_id('authorlink1').first['value']
         self.assertEquals(filled_in, 'Nels Anderson')
-        
         
 
 if __name__ == '__main__':
