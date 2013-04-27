@@ -5,8 +5,6 @@
 #__author__ = 'Apoc2400'
 
 import wsgiref.handlers
-from google.appengine.ext import webapp
-from google.appengine.api import users
 import atom.url
 import gdata.service
 import gdata.alt.appengine
@@ -21,21 +19,6 @@ import cgitb; cgitb.enable()
 import re
 import urllib
 from django.utils import simplejson as json
-
-#import wsgiref.handlers
-#from google.appengine.api import users
-#from google.appengine.ext import webapp
-#from google.appengine.ext import db
-#from google.appengine.api import urlfetch
-#import urllib # Used to unescape URL parameters.
-#import gdata.service
-#import gdata.alt.appengine
-#import gdata.auth
-#import atom
-#import atom.http_interface
-#import atom.token_store
-#import atom.url
-#import settings
 
 
 def error(message):
