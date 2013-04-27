@@ -83,6 +83,12 @@ class TestGoogleBooks(unittest.TestCase):
         browser.find_by_value('Make citation').first.click()
         self.assertIn('|edition=Foo|', citebox['value'])
         
+        
+        browser.find_by_id('authorLinkAnchor1').first.click()
+        filled_in = browser.find_by_id('authorlink1').first['value']
+        self.assertEquals(filled_in, 'Nels Anderson')
+        
+        
 
 if __name__ == '__main__':
     unittest.main()
