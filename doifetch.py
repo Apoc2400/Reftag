@@ -38,7 +38,7 @@ def doiFetchInfo(doi):
             citedata[key] = getText(cr_node[0])
 
     cr_contributors = xmldoc.getElementsByTagName('contributor')
-    authors = [];
+    authors = []
     for cr_contributor in cr_contributors:
         author = {}
         cr_givenname = cr_contributor.getElementsByTagName('given_name')
@@ -52,7 +52,7 @@ def doiFetchInfo(doi):
             author['last'] = author['last'].title()
         authors.append(author)
     if authors:
-        citedata['authors'] = authors;
+        citedata['authors'] = authors
     
     cr_first_page = xmldoc.getElementsByTagName('first_page')
     cr_last_page = xmldoc.getElementsByTagName('last_page')

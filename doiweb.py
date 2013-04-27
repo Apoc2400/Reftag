@@ -10,7 +10,7 @@ def printFooter():
 
 def error(message):
     print '<span id="citespan"><hr><font color="red">', cgi.escape(message, 1), "</font></span>"
-    printFooter();
+    printFooter()
     exit()
 
 def main():
@@ -40,16 +40,16 @@ def main():
     if not form.has_key("doi"):
         print """<hr><font color="DarkOliveGreen">Example DOI (copy and paste above):</font> 10.1111/j.1600-0404.1986.tb04634.x
         <p>Try also: <a href="/">Wikipedia citation tool for Google Books</a> or <a href="/nytweb.py">The New York Times</a></p>"""
-        printFooter();
+        printFooter()
         return
 
     doi = doi.strip()    #Trim whitespace
     citedata = doiFetchInfo(doi)
-    cite = '';
-    refname = '';
+    cite = ''
+    refname = ''
     
     if citedata.has_key('authors'):
-        authori = 0;
+        authori = 0
         for author in citedata['authors']:
             authori += 1
             if author.has_key('last'):
@@ -79,7 +79,7 @@ def main():
     print fullcite_enc
     print '</textarea>'
 
-    printFooter();
+    printFooter()
 
 
 

@@ -28,7 +28,7 @@ def printFooter():
 
 def error(message):
     print '<span id="citespan"><hr><font color="red">', cgi.escape(message, 1), "</font></span>"
-    printFooter();
+    printFooter()
     exit()
 
 
@@ -54,7 +54,7 @@ def main():
              </head><body onload="loadRun();" style="font-family: sans-serif; font-size:0.79375em">"""
 
 
-    book_url = '';
+    book_url = ''
     form = cgi.FieldStorage()
     if (form.has_key("book_url")):
         book_url = form["book_url"].value
@@ -63,9 +63,9 @@ def main():
     if (form.has_key("dateformat")):
         dateformat = form["dateformat"].value
 
-    checked_dmy = '';
-    checked_mdy = '';
-    checked_ymd = '';
+    checked_dmy = ''
+    checked_mdy = ''
+    checked_ymd = ''
     if dateformat == 'dmy':
         checked_dmy = ' checked="1"'
     elif dateformat == 'mdy':
@@ -92,7 +92,7 @@ def main():
         print """<hr><font color="DarkOliveGreen">Example book (copy and paste above):</font> http://books.google.com/books?id=aqmAc2fFsAUC&pg=PA90
             <p>Try also: <a href="doiweb.py">Wikipedia citation tool for DOI</a> or <a href="/nytweb.py">The New York Times</a>.<br />
             Also available from a user script: <a href="http://en.wikipedia.org/wiki/Wikipedia:RefToolbarPlus">refToolPlus</a>.</p>"""
-        printFooter();
+        printFooter()
         return
 
     #print "url:", book_url, "<br />"
@@ -113,7 +113,7 @@ def main():
     book_id = book_url_qs_fields["id"][0]
     #print "book_id:", book_id, "<br />"
     page = ''
-    page_string = '';
+    page_string = ''
     if book_url_qs_fields.has_key('pg'):
         page_string = book_url_qs_fields['pg'][0]
         match = re.search('\D*(\d+)', page_string)
@@ -148,11 +148,11 @@ def main():
     publisher = (', '.join(thisdict['publishers'])) if thisdict.has_key('publishers') else ''
     authors = thisdict['authors'] if thisdict.has_key('authors') else ''
 
-    isbn = '';
-    issn = '';
-    iccn = '';
-    oclc = '';
-    other_id_list = [];
+    isbn = ''
+    issn = ''
+    iccn = ''
+    oclc = ''
+    other_id_list = []
     otherfields = []
     if thisdict.has_key('identifiers'):
         for idpair in thisdict['identifiers']:
@@ -288,7 +288,7 @@ def main():
     <fieldset><legend>Preview</legend><span id="previewSpan"></span></fieldset>
     <br /><br /></span>"""
 
-    printFooter();
+    printFooter()
 
 
 if __name__ == "__main__":

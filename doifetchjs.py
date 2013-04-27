@@ -10,7 +10,7 @@ def error(message):
 
  
 def main():
-    doi = '';
+    doi = ''
     form = cgi.FieldStorage()
     if (not form.has_key("doi")):
         error('No DOI.')

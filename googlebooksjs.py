@@ -46,7 +46,7 @@ def error(message):
 
 def main():
 
-    book_url = '';
+    book_url = ''
     form = cgi.FieldStorage()
     if (not form.has_key("book_url")):
         error('No URL.')
@@ -74,9 +74,9 @@ def main():
     if (form.has_key("dateformat")):
         dateformat = form["dateformat"].value
 
-    checked_dmy = '';
-    checked_mdy = '';
-    checked_ymd = '';
+    checked_dmy = ''
+    checked_mdy = ''
+    checked_ymd = ''
     if dateformat == 'dmy':
         checked_dmy = ' checked="1"'
     elif dateformat == 'mdy':
@@ -104,7 +104,7 @@ def main():
         return
     book_id = book_url_qs_fields["id"][0]
     page = ''
-    page_string = '';
+    page_string = ''
     if book_url_qs_fields.has_key('pg'):
         page_string = book_url_qs_fields['pg'][0]
         match = re.search('\D*(\d+)', page_string)
@@ -133,11 +133,11 @@ def main():
 
     coauthors = ', '.join(authors[3:])
 
-    isbn = '';
-    issn = '';
-    iccn = '';
-    oclc = '';
-    other_id_list = [];
+    isbn = ''
+    issn = ''
+    iccn = ''
+    oclc = ''
+    other_id_list = []
     otherfields = []
     if thisdict.has_key('identifiers'):
         for idpair in thisdict['identifiers']:

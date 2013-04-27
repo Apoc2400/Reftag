@@ -12,7 +12,7 @@ def printFooter():
 
 def error(message):
     print '<span id="citespan"><hr><font color="red">', cgi.escape(message, 1), "</font></span>"
-    printFooter();
+    printFooter()
     exit()
 
 def main():
@@ -42,7 +42,7 @@ def main():
     if not form.has_key("url"):
         print """<hr><font color="DarkOliveGreen">Example URL (copy and paste above):</font> http://www.nytimes.com/2009/03/26/garden/26slow.html
         <p>Try also: <a href="/">Wikipedia citation tool for Google Books</a> or <a href="/doiweb.py">DOI</a></p>"""
-        printFooter();
+        printFooter()
         return
 
     url = url.strip()    #Trim whitespace
@@ -53,11 +53,11 @@ def main():
     if not citedata:
         error('No information returned by NYTimes API.')
     
-    cite = '';
-    refname = '';
+    cite = ''
+    refname = ''
     
     if citedata.has_key('authors'):
-        authori = 0;
+        authori = 0
         for author in citedata['authors']:
             authori += 1
             if len(citedata['authors']) > 1:
@@ -107,7 +107,7 @@ def main():
     print fullcite_enc
     print '</textarea>'
 
-    printFooter();
+    printFooter()
 
 
 
