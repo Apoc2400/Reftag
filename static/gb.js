@@ -64,7 +64,7 @@ function makeRefname() {
     }
   }
   else {
-    refname = document.getElementById('title').value;
+    refname = "";
   }
   document.getElementById('refname').value = refname;
 }
