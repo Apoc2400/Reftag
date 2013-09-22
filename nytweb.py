@@ -2,6 +2,7 @@ from nytimesfetch import nytimesFetchInfo
 import cgi
 import re
 import time
+import sys
 
 
 def printFooter():
@@ -11,6 +12,7 @@ def printFooter():
     print "</body></html>"
 
 def error(message):
+    sys.stderr.write(message + "\n")
     print '<span id="citespan"><hr><font color="red">', cgi.escape(message, 1), "</font></span>"
     printFooter()
     exit()

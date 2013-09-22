@@ -28,9 +28,9 @@ class TestGoogleBooksApi(unittest.TestCase):
 
 class TestUrlApi(unittest.TestCase):
     def test_url(self):
-        url = site + "urlfetchjs.py?url=http%3A%2F%2Fwww.nytimes.com%2F2009%2F03%2F26%2Fgarden%2F26slow.html&callback=mycallback"
+        url = site + "urlfetchjs.py?url=http%3A%2F%2Fwww.nytimes.com%2F2007%2F12%2F25%2Fworld%2Fafrica%2F25kenya.html&callback=mycallback"
         data = fetch_and_parse(url)
-        self.assertEquals(data['title'], "Slow, Easy, Cheap And Green")
+        self.assertEquals(data['title'], "Under Complex Election Rules, Nairobi Slum Could Pick Kenya's Next President")
 
 
 if __name__ == '__main__':

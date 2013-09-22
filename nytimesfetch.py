@@ -23,7 +23,7 @@ def nytimesFetchInfo(url):
     nytdata = json.loads(jsonstring)
     #print >> sys.stderr, nytdata
     if len(nytdata['results']) == 0:
-        #error('No results')
+        sys.stderr.write("No data from " + nyturl + "\n")
         return {}
     
     result = nytdata['results'][0]

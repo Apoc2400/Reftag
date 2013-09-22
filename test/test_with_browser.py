@@ -48,14 +48,14 @@ class TestNytWeb(unittest.TestCase):
         self.assertTrue(browser.is_text_present('New York Times Wikipedia reference generator'))
     
     def test_example(self):
-        browser.visit(self.subsite + "?url=http%3A%2F%2Fwww.nytimes.com%2F2009%2F03%2F26%2Fgarden%2F26slow.html") 
-        self.assertTrue(browser.is_text_present('cite news|last=Kurutz'))
+        browser.visit(self.subsite + "?url=http%3A%2F%2Fwww.nytimes.com%2F2007%2F12%2F25%2Fworld%2Fafrica%2F25kenya.html") 
+        self.assertTrue(browser.is_text_present('cite news|last=Gettleman'))
 
     def test_flow(self):
         browser.visit(self.subsite)
-        browser.fill('url', 'http://www.nytimes.com/2009/03/26/garden/26slow.html')
+        browser.fill('url', 'http://www.nytimes.com/2007/12/25/world/africa/25kenya.html')
         browser.find_by_value('Load').click()
-        self.assertTrue(browser.is_text_present('cite news|last=Kurutz'))
+        self.assertTrue(browser.is_text_present('cite news|last=Gettleman'))
 
 class TestDoiWeb(unittest.TestCase):
     subsite = site + "doiweb.py"
@@ -95,7 +95,7 @@ class TestGoogleBooks(unittest.TestCase):
         self.assertIn('|title=On Hobos', citebox['value'])
         
         preview = wait_until_filled(browser.find_by_id('previewSpan').first)
-        self.assertIn('Nels Anderson (1998)', preview)
+        self.assertIn('Nels Anderson (', preview)
 
         browser.find_by_id('edition').first.fill('Foo')
         browser.find_by_value('Make citation').first.click()
@@ -108,7 +108,7 @@ class TestGoogleBooks(unittest.TestCase):
     def test_plain_wikicode(self):
         browser.find_by_id('plain').first.click()
         cite = wait_until_filled(browser.find_by_id('fullcite').first)
-        self.assertIn('University of Chicago Press; 1998', cite)
+        self.assertIn('University of Chicago Press;', cite)
         
 
 if __name__ == '__main__':
