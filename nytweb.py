@@ -42,7 +42,7 @@ def main():
         </form>""" % (cgi.escape(url, 1))
 
     if not form.has_key("url"):
-        print """<hr><font color="DarkOliveGreen">Example URL (copy and paste above):</font> http://www.nytimes.com/2009/03/26/garden/26slow.html
+        print """<hr><font color="DarkOliveGreen">Example URL (copy and paste above):</font> http://www.nytimes.com/2007/12/25/world/africa/25kenya.html
         <p>Try also: <a href="/">Wikipedia citation tool for Google Books</a> or <a href="/doiweb.py">DOI</a></p>"""
         printFooter()
         return
