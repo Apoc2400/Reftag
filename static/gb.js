@@ -89,6 +89,9 @@ function makeCiteBook() {
   
   if (document.getElementById('cite_book').checked || document.getElementById('plain').checked) {
     cite += 'cite book';
+    if (document.getElementById('harv').checked) {
+        cite += '|ref=harv'
+    }
   }
   else if (document.getElementById('citation').checked) {
     cite += 'citation';

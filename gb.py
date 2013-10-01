@@ -278,6 +278,7 @@ def main():
     <input type="radio" tabindex=1 name="template" id="plain" value="plain" onClick="makeCiteBook()"><label for="plain">plain wikicode (experimental)</label>
     <input type="checkbox" tabindex=1 name="verbose" id="verbose" value="verbose" onClick="makeCiteBook()"><label for="verbose">Vertical form</label>
     <input type="checkbox" tabindex=1 name="extraparams" id="extraparams" value="extraparams" onClick="makeCiteBook()"><label for="extraparams">Extra parameters</label>
+    <input type="checkbox" tabindex=1 name="harv" id="harv" value="harv" onClick="makeCiteBook()"><label for="harv">ref=harv</label>
     <hr>""" % (cgi.escape(coauthors, 1), cgi.escape(publisher, 1), cgi.escape(date, 1), checked_dmy, checked_mdy, checked_ymd, cgi.escape(page, 1), cgi.escape(isbn, 1), cgi.escape(new_url, 1), cgi.escape('|'.join(otherfields), 1))
 
     print """<font color="DarkOliveGreen">3: Below is the complete reference tag. Copy and paste it into the Wikipedia article. Press "Make citation" above to regenerate if you have changed anything above.</font><br />
