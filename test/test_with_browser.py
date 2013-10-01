@@ -111,6 +111,11 @@ class TestGoogleBooks(unittest.TestCase):
         cite = wait_until_filled(browser.find_by_id('fullcite').first)
         self.assertIn('University of Chicago Press;', cite)
         
+    def test_harv(self):
+        browser.check('harv')
+        cite = wait_until_filled(browser.find_by_id('fullcite').first)
+        self.assertIn('|ref=harv', cite)
+        
     def test_cookies(self):
         browser.choose('dateformat', 'ymd')
         browser.check('harv')
