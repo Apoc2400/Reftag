@@ -473,18 +473,19 @@ function cookieToCheckbox(name) {
   document.getElementById(name).checked = c;
 }
 
+function calleach(func, list) {
+  var length = list.length;
+  for (var i = 0; i < length; i++) {
+    func(list[i]);
+  }  
+}
+
 var cookienames = ["harv", "extraparams", "verbose"];
 
 function saveCookies() {
-  var length = cookienames.length;
-  for (var i = 0; i < length; i++) {
-    checkboxToCookie(cookienames[i]);
-  }
+  calleach(checkboxToCookie, cookienames);
 }
 
 function readCookies() {
-  var length = cookienames.length;
-  for (var i = 0; i < length; i++) {
-    cookieToCheckbox(cookienames[i]);
-  }
+  calleach(cookieToCheckbox, cookienames);
 }
