@@ -442,7 +442,7 @@ function loadRun() {
 }
 
 function setCookie(c_name,value) {
-  var exdays = 1;
+  var exdays = 30;
   var exdate=new Date();
   exdate.setDate(exdate.getDate() + exdays);
   var c_value=escape(value) + 
