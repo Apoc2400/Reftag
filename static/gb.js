@@ -462,17 +462,29 @@ function getCookie(c_name) {
   }
 }
 
+
+function checkboxToCookie(name) {
+  var c = document.getElementById(name).checked;
+  setCookie(name, c, 1);
+}
+
+function cookieToCheckbox(name) {
+  var c = getCookie(name) == "true";
+  document.getElementById(name).checked = c;
+}
+
+var cookienames = ["harv", "extraparams", "verbose"];
+
 function saveCookies() {
-  var harv = document.getElementById('harv').checked;
-  setCookie("harv", harv, 1);
-  
-  var extraparams = document.getElementById('extraparams').checked;
-  setCookie("extraparams", extraparams, 1);
-
-
+  var length = cookienames.length;
+  for (var i = 0; i < length; i++) {
+    checkboxToCookie(cookienames[i]);
+  }
 }
 
 function readCookies() {
-  document.getElementById('harv').checked = getCookie("harv") == "true";
-  document.getElementById('extraparams').checked = getCookie("extraparams") == "true";
+  var length = cookienames.length;
+  for (var i = 0; i < length; i++) {
+    cookieToCheckbox(cookienames[i]);
+  }
 }
