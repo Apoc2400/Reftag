@@ -87,7 +87,7 @@ function makeCiteBook() {
   }
   cite += '>{{';
   
-  if (document.getElementById('cite_book').checked || document.getElementById('plain').checked) {
+  if (document.getElementById('cite_book').checked) {
     cite += 'cite book';
     if (document.getElementById('harv').checked) {
         cite += '|ref=harv'
@@ -95,6 +95,9 @@ function makeCiteBook() {
   }
   else if (document.getElementById('citation').checked) {
     cite += 'citation';
+  }
+  else if (document.getElementById('plain').checked){
+    cite += 'cite book';
   }
   else {alert('No template selected.');}
   
