@@ -123,6 +123,27 @@ class TestGoogleBooks(unittest.TestCase):
         browser.choose('template', 'plain')
         cite = wait_until_filled(browser.find_by_id('fullcite').first)
         self.assertNotIn('|ref=harv', cite)
+
+    def test_name_orbutton(self):
+        authorbox = browser.find_by_id('author1').first
+        lastbox = browser.find_by_id('last1').first
+        firstbox = browser.find_by_id('first1').first
+        
+        self.assertEquals(authorbox['value'], 'Nels Anderson')
+        self.assertEquals(lastbox['value'], '')
+        self.assertEquals(firstbox['value'], '')
+
+        browser.click_link_by_text('or')
+        
+        self.assertEquals(authorbox['value'], '')
+        self.assertEquals(lastbox['value'], 'Anderson')
+        self.assertEquals(firstbox['value'], 'Nels')
+
+        browser.click_link_by_text('or')
+
+        self.assertEquals(authorbox['value'], 'Nels Anderson')
+        self.assertEquals(lastbox['value'], '')
+        self.assertEquals(firstbox['value'], '')
         
     def test_cookies(self):
         browser.choose('dateformat', 'ymd')
