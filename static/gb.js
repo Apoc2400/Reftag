@@ -356,7 +356,6 @@ function reformatDates() {
   //alert(':' + dateformat + ':');
   document.getElementById('accessdate').value = formatDate(document.getElementById('accessdate').value, dateformat);
   document.getElementById('date').value = formatDate(document.getElementById('date').value, dateformat);
-  document.getElementById('dateformat_hidden').value = getDateFormatShort();
   
   saveCookies();
 }

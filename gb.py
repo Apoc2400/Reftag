@@ -59,23 +59,6 @@ def main():
     if (form.has_key("book_url")):
         book_url = form["book_url"].value
 
-    dateformat = ''
-    if (form.has_key("dateformat")):
-        dateformat = form["dateformat"].value
-
-    checked_dmy = ''
-    checked_mdy = ''
-    checked_ymd = ''
-    if dateformat == 'dmy':
-        checked_dmy = ' checked="1"'
-    elif dateformat == 'mdy':
-        checked_mdy = ' checked="1"'
-    elif dateformat == 'ymd':
-        checked_ymd = ' checked="1"'
-    else:
-        checked_dmy = ' checked="1"'
-        dateformat = 'dmy'
-
 
     print  """<h1><a href="/" style="text-decoration: none; color: black">{<font color="red">T</font>} Wikipedia citation tool for Google Books</a></h1>
               <font color="DarkOliveGreen">1: Find a book you want to cite on <a href="http://books.google.com/" target="_blank">Google Books</a>. 
@@ -84,9 +67,8 @@ def main():
               <label id="book_url_label" for="book_url">Google Books URL:</label>
               <input type="text" size="80" name="book_url" id="book_url" tabindex=1 
                   value="%s"></input>
-          <input type="hidden" name="dateformat" id="dateformat_hidden" value="%s">
               <input type="submit" value="Load" tabindex=1></input> &nbsp; &nbsp; <input type="button" tabindex=1 value="Clear" onClick="formClear();"> <!--Hej du!-->
-              </form>""" % (cgi.escape(book_url, 1), cgi.escape(dateformat, 1))
+              </form>""" % (cgi.escape(book_url, 1))
 
     if not form.has_key("book_url"):
         print """<hr><font color="DarkOliveGreen">Example book (copy and paste above):</font> http://books.google.com/books?id=aqmAc2fFsAUC&pg=PA90
@@ -235,9 +217,9 @@ def main():
 
     <tr><td><label for="date">Publication&nbsp;date or&nbsp;year: </label></td>
     <td colspan=3><input type="text" tabindex=1 style="width:140px" id="date" value="%s"> format: 
-    <input id="dmy" name="dateformat" value="dmy" type="radio"%s tabindex=1 onclick="reformatDates()"><label for="dmy">dmy</label>
-    <input id="mdy" name="dateformat" value="mdy" type="radio"%s tabindex=1 onclick="reformatDates()"><label for="mdy">md, y</label>
-    <input id="ymd" name="dateformat" value="ymd" type="radio"%s tabindex=1 onclick="reformatDates()"><label for="ymd">y-m-d</label>
+    <input id="dmy" name="dateformat" value="dmy" type="radio" checked="1" tabindex=1 onclick="reformatDates()"><label for="dmy">dmy</label>
+    <input id="mdy" name="dateformat" value="mdy" type="radio" tabindex=1 onclick="reformatDates()"><label for="mdy">md, y</label>
+    <input id="ymd" name="dateformat" value="ymd" type="radio" tabindex=1 onclick="reformatDates()"><label for="ymd">y-m-d</label>
     </td>
     <td><label for="edition">&nbsp;Edition: </label></td>
     <td colspan=3><input type="text" tabindex=1 style="width:100%%" id="edition"></td></tr>
@@ -279,7 +261,7 @@ def main():
     <input type="checkbox" tabindex=1 name="verbose" id="verbose" value="verbose" onClick="makeCiteBook()"><label for="verbose">Vertical form</label>
     <input type="checkbox" tabindex=1 name="extraparams" id="extraparams" value="extraparams" onClick="makeCiteBook()"><label for="extraparams">Extra parameters</label>
     <input type="checkbox" tabindex=1 name="harv" id="harv" value="harv" onClick="makeCiteBook()"><label for="harv">ref=harv</label>
-    <hr>""" % (cgi.escape(coauthors, 1), cgi.escape(publisher, 1), cgi.escape(date, 1), checked_dmy, checked_mdy, checked_ymd, cgi.escape(page, 1), cgi.escape(isbn, 1), cgi.escape(new_url, 1), cgi.escape('|'.join(otherfields), 1))
+    <hr>""" % (cgi.escape(coauthors, 1), cgi.escape(publisher, 1), cgi.escape(date, 1), cgi.escape(page, 1), cgi.escape(isbn, 1), cgi.escape(new_url, 1), cgi.escape('|'.join(otherfields), 1))
 
     print """<font color="DarkOliveGreen">3: Below is the complete reference tag. Copy and paste it into the Wikipedia article. Press "Make citation" above to regenerate if you have changed anything above.</font><br />
     <textarea rows="5" cols="100" style="width: 99%" id="fullcite" tabindex=1></textarea>"""
