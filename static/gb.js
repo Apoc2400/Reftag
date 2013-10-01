@@ -70,12 +70,25 @@ function makeRefname() {
 }
 
 function splitName(i) {
-  var author = document.getElementById('author' + i).value;
-  var match = /(.+)\s+(.+)/.exec(author);
+  var author = document.getElementById('author' + i);
+  var first = document.getElementById('first' + i);
+  var last = document.getElementById('last' + i);
+  
+  var match = /(.+)\s+(.+)/.exec(author.value);
   if (match) {
-    document.getElementById('first' + i).value = match[1];
-    document.getElementById('last' + i).value = match[2];
-    document.getElementById('author' + i).value = '';
+    first.value = match[1];
+    last.value = match[2];
+    author.value = '';
+  }
+  else if (author.value == '' && 
+           (first.value != '' || 
+            last.value != '')) {
+    // Reverse split
+    author.value = 
+        first.value + ' ' + 
+        last.value;
+    first.value = '';
+    last.value = '';
   }
 }
 
