@@ -440,7 +440,8 @@ function loadRun() {
   }
 }
 
-function setCookie(c_name,value,exdays) {
+function setCookie(c_name,value) {
+  var exdays = 1;
   var exdate=new Date();
   exdate.setDate(exdate.getDate() + exdays);
   var c_value=escape(value) + 
@@ -465,11 +466,11 @@ function getCookie(c_name) {
 
 function checkboxToCookie(name) {
   var c = document.getElementById(name).checked;
-  setCookie(name, c, 1);
+  setCookie(name, c);
 }
 
 function cookieToCheckbox(name) {
-  var c = getCookie(name) == "true";
+  var c = getCookie(name) === "true";
   document.getElementById(name).checked = c;
 }
 
@@ -480,12 +481,36 @@ function calleach(func, list) {
   }  
 }
 
+function getCiteTemplate() {
+  if (document.getElementById('cite_book').checked) {
+    return 'cite_book';
+  }
+  else if (document.getElementById('citation').checked) {
+    return 'citation';
+  }
+  else if (document.getElementById('plain').checked){
+    return 'plain';
+  }
+  return 'cite_book';  
+}
+
 var cookienames = ["harv", "extraparams", "verbose"];
 
 function saveCookies() {
   calleach(checkboxToCookie, cookienames);
+  setCookie("template", getCiteTemplate());
 }
 
 function readCookies() {
   calleach(cookieToCheckbox, cookienames);
+  var template = getCookie("template");
+  if (template === 'citation') {
+      document.getElementById('citation').checked = true;
+  }
+  else if (template === 'plain') {
+      document.getElementById('plain').checked = true;
+  }
+  else {
+    document.getElementById('cite_book').checked = true;
+  }
 }
