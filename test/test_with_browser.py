@@ -76,6 +76,7 @@ class TestDoiWeb(unittest.TestCase):
 class TestGoogleBooks(unittest.TestCase):
 
     def setUp(self):
+        browser.cookies.delete()
         browser.visit(site)
         browser.fill('book_url', 'http://books.google.com/books?id=aqmAc2fFsAUC&pg=PA90')
         browser.find_by_value('Load').click()
@@ -110,6 +111,14 @@ class TestGoogleBooks(unittest.TestCase):
         cite = wait_until_filled(browser.find_by_id('fullcite').first)
         self.assertIn('University of Chicago Press;', cite)
         
+    def test_cookies(self):
+        browser.choose('dateformat', 'ymd')
+        browser.check('harv')
+        
+        browser.find_by_value('Load').click()
+        
+        self.assertTrue(browser.find_by_id('ymd').first.checked)
+        self.assertTrue(browser.find_by_id('harv').first.checked)
 
 if __name__ == '__main__':
     unittest.main()
