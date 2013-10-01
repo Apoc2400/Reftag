@@ -357,6 +357,8 @@ function reformatDates() {
   document.getElementById('accessdate').value = formatDate(document.getElementById('accessdate').value, dateformat);
   document.getElementById('date').value = formatDate(document.getElementById('date').value, dateformat);
   document.getElementById('dateformat_hidden').value = getDateFormatShort();
+  
+  saveCookies();
 }
 
 function setAccessDateToday() {
@@ -427,11 +429,11 @@ function makeCopyButton() {
 
 function loadRun() {
   if (document.getElementById('accessdate')) {
+    readCookies();
     reformatDates();
     makeRefname();
     setAccessDateToday();
     checkAuthorLinks();
-    readCookies();
     makeCiteBook();
     makeCopyButton()
   }
@@ -467,11 +469,13 @@ function getCookie(c_name) {
 function checkboxToCookie(name) {
   var c = document.getElementById(name).checked;
   setCookie(name, c);
+  //if (name === 'harv') {alert("Saved: " + name + " " + c);}
 }
 
 function cookieToCheckbox(name) {
   var c = getCookie(name) === "true";
   document.getElementById(name).checked = c;
+  //if (name === 'harv') {alert("Read: " + name + " " + c + "-" + getCookie(name));}
 }
 
 function calleach(func, list) {
@@ -499,10 +503,12 @@ var cookienames = ["harv", "extraparams", "verbose"];
 function saveCookies() {
   calleach(checkboxToCookie, cookienames);
   setCookie("template", getCiteTemplate());
+  setCookie("dateformat", getDateFormatShort());
 }
 
 function readCookies() {
   calleach(cookieToCheckbox, cookienames);
+  
   var template = getCookie("template");
   if (template === 'citation') {
       document.getElementById('citation').checked = true;
@@ -512,5 +518,16 @@ function readCookies() {
   }
   else {
     document.getElementById('cite_book').checked = true;
+  }
+
+  var dateformat = getCookie("dateformat");
+  if (dateformat === 'mdy') {
+      document.getElementById('mdy').checked = true;
+  }
+  else if (dateformat === 'ymd') {
+      document.getElementById('ymd').checked = true;
+  }
+  else {
+    document.getElementById('dmy').checked = true;
   }
 }
