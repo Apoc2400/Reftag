@@ -12,7 +12,7 @@ def tearDownModule():
     
 def wait_until_filled(box):
     for i in range(10):
-        content = box['value'] or box.text
+        content = box.value or box.text
         if content != '' and content != 'Updating...':
             return content
         time.sleep(1)
@@ -87,23 +87,23 @@ class TestGoogleBooks(unittest.TestCase):
     
     def test_flow(self):
         authorbox = browser.find_by_id('author1').first
-        self.assertEquals(authorbox['value'], 'Nels Anderson')
+        self.assertEquals(authorbox.value, 'Nels Anderson')
         
-        isbn = browser.find_by_id('isbn').first['value']
+        isbn = browser.find_by_id('isbn').first.value
         self.assertEquals(isbn, '978-0-226-01966-6')
         
         citebox = browser.find_by_id('fullcite').first
-        self.assertIn('|title=On Hobos', citebox['value'])
+        self.assertIn('|title=On Hobos', citebox.value)
         
         preview = wait_until_filled(browser.find_by_id('previewSpan').first)
         self.assertIn('Nels Anderson (', preview)
 
         browser.find_by_id('edition').first.fill('Foo')
         browser.find_by_value('Make citation').first.click()
-        self.assertIn('|edition=Foo|', citebox['value'])
+        self.assertIn('|edition=Foo|', citebox.value)
         
         browser.find_by_id('authorLinkAnchor1').first.click()
-        filled_in = browser.find_by_id('authorlink1').first['value']
+        filled_in = browser.find_by_id('authorlink1').first.value
         self.assertEquals(filled_in, 'Nels Anderson')
         
     def test_plain_wikicode(self):
@@ -129,21 +129,21 @@ class TestGoogleBooks(unittest.TestCase):
         lastbox = browser.find_by_id('last1').first
         firstbox = browser.find_by_id('first1').first
         
-        self.assertEquals(authorbox['value'], 'Nels Anderson')
-        self.assertEquals(lastbox['value'], '')
-        self.assertEquals(firstbox['value'], '')
+        self.assertEquals(authorbox.value, 'Nels Anderson')
+        self.assertEquals(lastbox.value, '')
+        self.assertEquals(firstbox.value, '')
 
         browser.click_link_by_text('or')
         
-        self.assertEquals(authorbox['value'], '')
-        self.assertEquals(lastbox['value'], 'Anderson')
-        self.assertEquals(firstbox['value'], 'Nels')
+        self.assertEquals(authorbox.value, '')
+        self.assertEquals(lastbox.value, 'Anderson')
+        self.assertEquals(firstbox.value, 'Nels')
 
         browser.click_link_by_text('or')
 
-        self.assertEquals(authorbox['value'], 'Nels Anderson')
-        self.assertEquals(lastbox['value'], '')
-        self.assertEquals(firstbox['value'], '')
+        self.assertEquals(authorbox.value, 'Nels Anderson')
+        self.assertEquals(lastbox.value, '')
+        self.assertEquals(firstbox.value, '')
         
     def test_cookies(self):
         browser.choose('dateformat', 'ymd')
