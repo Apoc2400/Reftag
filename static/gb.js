@@ -96,6 +96,15 @@ function splitName(i) {
 
 function makeCiteBook() {
   saveCookies();
+  
+  var pagesbox = document.getElementById('pages');
+  if (document.getElementById('harv').checked) {
+    pagesbox.value = '';
+    pagesbox.disabled = true;
+    pagesbox.style.backgroundColor = '';
+  } else {
+    pagesbox.disabled = false;
+  }
 
   var cite = '<ref';
   var refname = document.getElementById('refname').value;

@@ -87,10 +87,10 @@ class TestGoogleBooks(unittest.TestCase):
     
     def test_flow(self):
         authorbox = browser.find_by_id('author1').first
-        self.assertEquals(authorbox.value, 'Nels Anderson')
+        self.assertEqual(authorbox.value, 'Nels Anderson')
         
         isbn = browser.find_by_id('isbn').first.value
-        self.assertEquals(isbn, '978-0-226-01966-6')
+        self.assertEqual(isbn, '978-0-226-01966-6')
         
         citebox = browser.find_by_id('fullcite').first
         self.assertIn('|title=On Hobos', citebox.value)
@@ -104,7 +104,7 @@ class TestGoogleBooks(unittest.TestCase):
         
         browser.find_by_id('authorLinkAnchor1').first.click()
         filled_in = browser.find_by_id('authorlink1').first.value
-        self.assertEquals(filled_in, 'Nels Anderson')
+        self.assertEqual(filled_in, 'Nels Anderson')
         
     def test_plain_wikicode(self):
         browser.find_by_id('plain').first.click()
@@ -112,9 +112,16 @@ class TestGoogleBooks(unittest.TestCase):
         self.assertIn('University of Chicago Press;', cite)
         
     def test_harv(self):
+        pagebox = browser.find_by_id('pages').first
+        self.assertFalse(pagebox['disabled']);
+        self.assertIn('background-color: rgb(255, 255, 153);', pagebox['style']);
+        
         browser.check('harv')
         cite = wait_until_filled(browser.find_by_id('fullcite').first)
         self.assertIn('|ref=harv', cite)
+        self.assertTrue(pagebox['disabled']);
+        self.assertEqual(pagebox.value, '');
+        self.assertNotIn('background-color', pagebox['style']);
         
         browser.choose('template', 'citation')
         cite = wait_until_filled(browser.find_by_id('fullcite').first)
@@ -129,21 +136,21 @@ class TestGoogleBooks(unittest.TestCase):
         lastbox = browser.find_by_id('last1').first
         firstbox = browser.find_by_id('first1').first
         
-        self.assertEquals(authorbox.value, 'Nels Anderson')
-        self.assertEquals(lastbox.value, '')
-        self.assertEquals(firstbox.value, '')
+        self.assertEqual(authorbox.value, 'Nels Anderson')
+        self.assertEqual(lastbox.value, '')
+        self.assertEqual(firstbox.value, '')
 
         browser.click_link_by_text('or')
         
-        self.assertEquals(authorbox.value, '')
-        self.assertEquals(lastbox.value, 'Anderson')
-        self.assertEquals(firstbox.value, 'Nels')
+        self.assertEqual(authorbox.value, '')
+        self.assertEqual(lastbox.value, 'Anderson')
+        self.assertEqual(firstbox.value, 'Nels')
 
         browser.click_link_by_text('or')
 
-        self.assertEquals(authorbox.value, 'Nels Anderson')
-        self.assertEquals(lastbox.value, '')
-        self.assertEquals(firstbox.value, '')
+        self.assertEqual(authorbox.value, 'Nels Anderson')
+        self.assertEqual(lastbox.value, '')
+        self.assertEqual(firstbox.value, '')
         
     def test_cookies(self):
         browser.choose('dateformat', 'ymd')
@@ -161,39 +168,39 @@ class TestGoogleBooks(unittest.TestCase):
         browser.fill('book_url', otherbook)
         browser.find_by_value('Load').click()
         
-        self.assertEquals(read_textbox('author1'), '')
-        self.assertEquals(read_textbox('last1'), 'Nitta')
-        self.assertEquals(read_textbox('first1'), 'Hideharu')
+        self.assertEqual(read_textbox('author1'), '')
+        self.assertEqual(read_textbox('last1'), 'Nitta')
+        self.assertEqual(read_textbox('first1'), 'Hideharu')
 
-        self.assertEquals(read_textbox('author2'), '')
-        self.assertEquals(read_textbox('last2'), 'Kanai')
-        self.assertEquals(read_textbox('first2'), 'Madoka')
+        self.assertEqual(read_textbox('author2'), '')
+        self.assertEqual(read_textbox('last2'), 'Kanai')
+        self.assertEqual(read_textbox('first2'), 'Madoka')
 
-        self.assertEquals(read_textbox('author3'), '')
-        self.assertEquals(read_textbox('last3'), 'Yamagiwa')
-        self.assertEquals(read_textbox('first3'), 'Joseph Koshimi')
+        self.assertEqual(read_textbox('author3'), '')
+        self.assertEqual(read_textbox('last3'), 'Yamagiwa')
+        self.assertEqual(read_textbox('first3'), 'Joseph Koshimi')
         
         browser.click_link_by_text('or')
         browser.find_by_value('Load').click()
         
-        self.assertEquals(read_textbox('author1'), 'Hideharu Nitta')
-        self.assertEquals(read_textbox('last1'), '')
-        self.assertEquals(read_textbox('first1'), '')
+        self.assertEqual(read_textbox('author1'), 'Hideharu Nitta')
+        self.assertEqual(read_textbox('last1'), '')
+        self.assertEqual(read_textbox('first1'), '')
 
-        self.assertEquals(read_textbox('author2'), 'Madoka Kanai')
-        self.assertEquals(read_textbox('last2'), '')
-        self.assertEquals(read_textbox('first2'), '')
+        self.assertEqual(read_textbox('author2'), 'Madoka Kanai')
+        self.assertEqual(read_textbox('last2'), '')
+        self.assertEqual(read_textbox('first2'), '')
 
-        self.assertEquals(read_textbox('author3'), 'Joseph Koshimi Yamagiwa')
-        self.assertEquals(read_textbox('last3'), '')
-        self.assertEquals(read_textbox('first3'), '')
+        self.assertEqual(read_textbox('author3'), 'Joseph Koshimi Yamagiwa')
+        self.assertEqual(read_textbox('last3'), '')
+        self.assertEqual(read_textbox('first3'), '')
         
         browser.click_link_by_text('or')
-        self.assertEquals(read_textbox('author1'), '')
+        self.assertEqual(read_textbox('author1'), '')
         
         browser.cookies.delete()
         browser.find_by_value('Load').click()
-        self.assertEquals(read_textbox('author1'), 'Hideharu Nitta')
+        self.assertEqual(read_textbox('author1'), 'Hideharu Nitta')
         
 
 def read_textbox(id):
