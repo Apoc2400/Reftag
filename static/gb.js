@@ -380,7 +380,7 @@ function setAccessDateToday() {
 //var xmlhttpAuthorLinks = [new XMLHttpRequest(), new XMLHttpRequest(), new XMLHttpRequest()];
 function checkAuthorLinks() {
   for (var i=1;i<=3;i++) {
-    var authorName = document.getElementById('author' + i).value;
+    var authorName = document.getElementById('authorOrig' + i).value;
     if (/\S/.test(authorName)) {
       checkOneAuthorLink(authorName, i);
     }
