@@ -188,7 +188,13 @@ class TestGoogleBooks(unittest.TestCase):
         self.assertEquals(read_textbox('last3'), '')
         self.assertEquals(read_textbox('first3'), '')
         
-
+        browser.click_link_by_text('or')
+        self.assertEquals(read_textbox('author1'), '')
+        
+        browser.cookies.delete()
+        browser.find_by_value('Load').click()
+        self.assertEquals(read_textbox('author1'), 'Hideharu Nitta')
+        
 
 def read_textbox(id):
     return browser.find_by_id(id).first.value
