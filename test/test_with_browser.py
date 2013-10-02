@@ -202,6 +202,11 @@ class TestGoogleBooks(unittest.TestCase):
         browser.find_by_value('Load').click()
         self.assertEqual(read_textbox('author1'), 'Hideharu Nitta')
         
+    def test_accessdate(self):
+        self.assertEqual(read_textbox('accessdate'), '')
+        browser.find_by_value('<Today').click()
+        self.assertNotEqual(read_textbox('accessdate'), '')
+        
 
 def read_textbox(id):
     return browser.find_by_id(id).first.value
