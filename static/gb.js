@@ -442,7 +442,6 @@ function loadRun() {
     readCookies();
     reformatDates();
     makeRefname();
-    setAccessDateToday();
     checkAuthorLinks();
     makeCiteBook();
     makeCopyButton()

@@ -246,7 +246,7 @@ def main():
     <tr><td><label for="url">URL: </label></td>
     <td colspan=3><input type="text" tabindex=1 style="width:100%%" id="url" value="%s"></td>
     <td><label for="accessdate">&nbsp;Access&nbsp;date:</label></td>
-    <td colspan=3><input type="text" tabindex=1 style="width:100%%" id="accessdate"><!--<input type="button" tabindex=1 value="<Today" onClick="setAccessDateToday()">--></td></tr>
+    <td colspan=3><input type="text" tabindex=1 style="width:50%%" id="accessdate"><input type="button" tabindex=1 value="<Today" onClick="setAccessDateToday()"></td></tr>
 
     <tr><td><label for="otherfields">Other&nbsp;fields:</label></td>
     <td colspan=3><input type="text" tabindex=1 style="width:100%%" id="otherfields" value="%s"></td>
