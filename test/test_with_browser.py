@@ -153,6 +153,46 @@ class TestGoogleBooks(unittest.TestCase):
         
         self.assertTrue(browser.find_by_id('ymd').first.checked)
         self.assertTrue(browser.find_by_id('harv').first.checked)
+        
+    def test_authorformat_cookie(self):
+        browser.click_link_by_text('or')
+        
+        otherbook = 'http://books.google.se/books?id=EzI8AAAAMAAJ&printsec=frontcover&dq=japan&hl=en&sa=X&ei=ZnFMUvO7IOWi4gSFwIGQBg&redir_esc=y#v=onepage&q=japan&f=false'
+        browser.fill('book_url', otherbook)
+        browser.find_by_value('Load').click()
+        
+        self.assertEquals(read_textbox('author1'), '')
+        self.assertEquals(read_textbox('last1'), 'Nitta')
+        self.assertEquals(read_textbox('first1'), 'Hideharu')
+
+        self.assertEquals(read_textbox('author2'), '')
+        self.assertEquals(read_textbox('last2'), 'Kanai')
+        self.assertEquals(read_textbox('first2'), 'Madoka')
+
+        self.assertEquals(read_textbox('author3'), '')
+        self.assertEquals(read_textbox('last3'), 'Yamagiwa')
+        self.assertEquals(read_textbox('first3'), 'Joseph Koshimi')
+        
+        browser.click_link_by_text('or')
+        browser.find_by_value('Load').click()
+        
+        self.assertEquals(read_textbox('author1'), 'Hideharu Nitta')
+        self.assertEquals(read_textbox('last1'), '')
+        self.assertEquals(read_textbox('first1'), '')
+
+        self.assertEquals(read_textbox('author2'), 'Madoka Kanai')
+        self.assertEquals(read_textbox('last2'), '')
+        self.assertEquals(read_textbox('first2'), '')
+
+        self.assertEquals(read_textbox('author3'), 'Joseph Koshimi Yamagiwa')
+        self.assertEquals(read_textbox('last3'), '')
+        self.assertEquals(read_textbox('first3'), '')
+        
+
+
+def read_textbox(id):
+    return browser.find_by_id(id).first.value
+
 
 if __name__ == '__main__':
     unittest.main()

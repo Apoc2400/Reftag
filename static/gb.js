@@ -79,6 +79,7 @@ function splitName(i) {
     first.value = match[1];
     last.value = match[2];
     author.value = '';
+    saveAuthorFormat('split');
   }
   else if (author.value == '' && 
            (first.value != '' || 
@@ -89,6 +90,7 @@ function splitName(i) {
         last.value;
     first.value = '';
     last.value = '';
+    saveAuthorFormat('single');
   }
 }
 
@@ -505,6 +507,10 @@ function saveCookies() {
   setCookie("dateformat", getDateFormatShort());
 }
 
+function saveAuthorFormat(format) {
+  setCookie("authorformat", format);
+}
+
 function readCookies() {
   calleach(cookieToCheckbox, cookienames);
   
@@ -528,5 +534,14 @@ function readCookies() {
   }
   else {
     document.getElementById('dmy').checked = true;
+  }
+  
+  var authorFormat = getCookie("authorformat");
+  if (authorFormat === "split") {
+    for(var i = 1; i <= 3; i++) {
+      if (document.getElementById('author' + i).value != ''){ 
+        splitName(i);
+      }
+    }
   }
 }
