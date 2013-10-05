@@ -1,7 +1,7 @@
 import cgi
 import cgitb; cgitb.enable()
 import urllib
-#import urllib2        # Now called inside cachedFetch
+import sys
 from cachedfetch import cachedFetch
 
 def main():
