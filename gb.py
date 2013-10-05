@@ -260,7 +260,7 @@ def main():
     <input type="button" tabindex=1 value="Make citation" onClick="makeCiteBook()">
     <input type="radio" tabindex=1 name="template" id="cite_book" value="cite_book" checked="1" onClick="makeCiteBook()"><label for="cite_book">{{cite book}}</label> <sup><a href="http://en.wikipedia.org/wiki/Template:Cite_book" target="_blank">[doc]</a></sup>
     <input type="radio" tabindex=1 name="template" id="citation" value="citation" onClick="makeCiteBook()"><label for="citation">{{citation}}</label> <sup><a href="http://en.wikipedia.org/wiki/Template:Citation" target="_blank">[doc]</a></sup>
-    <input type="radio" tabindex=1 name="template" id="plain" value="plain" onClick="makeCiteBook()"><label for="plain">plain wikicode (experimental)</label>
+    <input type="radio" tabindex=1 name="template" id="plain" value="plain" onClick="makeCiteBook()"><label for="plain">plain wikicode</label>
     <input type="checkbox" tabindex=1 name="verbose" id="verbose" value="verbose" onClick="makeCiteBook()"><label for="verbose">Vertical form</label>
     <input type="checkbox" tabindex=1 name="extraparams" id="extraparams" value="extraparams" onClick="makeCiteBook()"><label for="extraparams">Extra parameters</label>
     <input type="checkbox" tabindex=1 name="harv" id="harv" value="harv" onClick="makeCiteBook()"><label for="harv">ref=harv</label>
