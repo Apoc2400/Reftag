@@ -1,10 +1,7 @@
 import unittest
 from splinter import Browser
 import time
-
-
-site = "http://localhost:8080/"
-#site = "http://reftag.appspot.com/"
+from siteurl import site
 
 browser = Browser()
 def tearDownModule():

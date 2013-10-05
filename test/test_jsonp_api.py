@@ -2,9 +2,7 @@ import unittest
 import json
 import urllib2
 import re
-
-site = "http://localhost:8080/"
-#site = "http://reftag.appspot.com/"
+from siteurl import site
 
 def strip_jsonp(jsonp_string):
     return re.sub('mycallback\((.*)\);', r'\1', jsonp_string, flags=re.DOTALL)
