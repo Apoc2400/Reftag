@@ -207,6 +207,11 @@ class TestGoogleBooks(unittest.TestCase):
         browser.find_by_value('<Today').click()
         self.assertNotEqual(read_textbox('accessdate'), '')
         
+    def test_errormessage(self):
+        browser.fill('book_url', 'foo')
+        browser.find_by_value('Load').click()
+        self.assertTrue(browser.is_text_present('Error: Not a Google Books URL.'))
+
 
 def read_textbox(id):
     return browser.find_by_id(id).first.value

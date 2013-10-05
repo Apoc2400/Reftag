@@ -27,9 +27,8 @@ def printFooter():
     print "</body></html>"
 
 def error(message):
-    print '<span id="citespan"><hr><font color="red">', cgi.escape(message, 1), "</font></span>"
+    print '<span id="citespan"><hr><font color="red"> Error:', cgi.escape(message, 1), "</font></span>"
     printFooter()
-    exit()
 
 
 def main():
@@ -80,9 +79,11 @@ def main():
     #print "url:", book_url, "<br />"
     if not re.search('books.google.', book_url, re.I) and not re.search('\?id=', book_url, re.I):
         error('Not a Google Books URL.')
+        return
     urlsep = re.search('\?([^#]*)', book_url)
     if not urlsep:
         error('Bad URL.')
+        return
 
     book_url_qs = urlsep.group(1)
     #print "url_qs:", book_url_qs, "<br />"
@@ -92,6 +93,7 @@ def main():
 
     if not book_url_qs_fields.has_key("id"):
         error('Bad URL. It has to be for a specific book, not a search result page')
+        return
     book_id = book_url_qs_fields["id"][0]
     #print "book_id:", book_id, "<br />"
     page = ''
@@ -119,6 +121,7 @@ def main():
     except Exception, err:
         print >> sys.stderr, 'ERROR: %s\n' % str(err)
         error('No information available for this URL.')
+        return
         
     #thisdict = {'embeddability': 'embeddable', 'info': 'http://books.google.com/books?id=9PE2T2a5fDYC&ie=ISO-8859-1&source=gbs_gdata', 'description': 'Ramon Sarr\xc3\xb3 explores an iconoclastic religious movement initiated by a Muslim preacher during the French colonial period. Employing an ethnographic approach that respects the testimony of those who suffered violence as opposed to those who wanted to "get rid of custom," this work discusses the extent to which iconoclasm produces a rupture of religious knowledge and identity and analyzes its relevance in the making of modern nations and citizens. The Politics of Religious Change on the Upper Guinea Coastexamines the historical complexity of the interface between Islam, traditional religions, and Christianity in West Africa, and how this interface connects to dramatic political change. The book unveils a rare history and brokers a dialogue between a long tradition of anthropology and contemporary anthropological debates. A wide range of readers, particularly those with an interest in the anthropology of religion, iconoclasm, the history and anthropology of West Africa, or the politics of heritage, will gravitate toward this work.', 'format': 'book', 'publishers': ['Edinburgh University Press'], 'identifiers': [('google_id', '9PE2T2a5fDYC'), ('ISBN', '0748635157'), ('ISBN', '9780748635153')], 'thumbnail': 'http://bks9.books.google.com/books?id=9PE2T2a5fDYC&printsec=frontcover&img=1&zoom=5&edge=curl&sig=ACfU3U0LyllDnVUHiadMIrdIuvVAiURtuQ&source=gbs_gdata', 'subjects': ['Iconoclasm', 'Guinea', 'Iconoclasm/ Guinea', 'Religion and politics', 'History / Europe / General', 'Social Science / Human Geography', 'Social Science / Ethnic Studies / General', 'Social Science / Customs & Traditions', 'Religion / Ethnic & Tribal', 'Religion / General', 'History / Africa / General', 'Religion / Comparative Religion', 'History / General', 'History / Africa / General', 'Religion / Ethnic & Tribal', 'Religion / Islam / General', 'Religion / Religion, Politics & State', 'Social Science / Human Geography', 'Social Science / Islamic Studies', 'Travel / Africa / General'], 'authors': ['Ramon Sarr\xc3\xb3', 'John Smith', 'Jane Smith', 'Olaus Petrus', 'Mick Paff'], 'date': '2009-05-03', 'title': 'The Politics of Religious Change on the Upper Guinea Coast: Iconoclasm Done and Undone', 'viewability': 'view_partial', 'annotation': 'http://www.google.com/books/feeds/users/me/volumes'}
 
