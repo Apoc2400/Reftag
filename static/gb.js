@@ -166,6 +166,8 @@ function makeCiteBook() {
       else if (fieldname == "date" && /^\d\d\d\d$/.test(value)) {
         fieldname = "year";  // Use year= instead of date= if only the year is specified
       }
+      value = value.replace(/\[/g, '&#91;');
+      value = value.replace(/\]/g, '&#93;');
       cite += '|' + fieldname + '=' + value;
     }
   }
@@ -222,8 +224,8 @@ function makeCiteBook() {
 	  expanded = expanded.replace(/<nowiki\/?>/ig, '');
 	  expanded = expanded.replace(/\&\#32\;/ig, ' ');
 	  expanded = expanded.replace(/\&\#59\;/ig, ';');
-	  expanded = expanded.replace(/\&\#91\;/ig, '[');
-	  expanded = expanded.replace(/\&\#93\;/ig, ']');
+	  //expanded = expanded.replace(/\&\#91\;/ig, '[');
+	  //expanded = expanded.replace(/\&\#93\;/ig, ']');
 	  
 	  document.getElementById('fullcite').rows = 5;
 	  document.getElementById('fullcite').value = citebeg + expanded + citeend;

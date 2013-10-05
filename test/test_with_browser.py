@@ -212,6 +212,29 @@ class TestGoogleBooks(unittest.TestCase):
         browser.find_by_value('Load').click()
         self.assertTrue(browser.is_text_present('Error: Not a Google Books URL.'))
 
+    def test_brackets(self):
+        book_with_brackets = 'http://books.google.com/books?id=XvENAAAAQAAJ'
+        # Title: Matthews's new Bristol directory [afterw.] Mathews's annual directory for the city and county of Bristol [afterw.] Mathews' Bristol directory
+        # The brackets [] have caused problems before. They are not 
+        # allowed in the templates and must be escaped.
+        
+        browser.fill('book_url', book_with_brackets)
+        browser.find_by_value('Load').click()
+        
+        citebox = browser.find_by_id('fullcite').first
+        self.assertIn('&#91;afterw.&#93; Mathews', citebox.value)
+        self.assertNotIn('[', citebox.value)
+        self.assertNotIn(']', citebox.value)
+        
+        browser.find_by_id('citation').first.click()
+        self.assertIn('&#91;afterw.&#93; Mathews', citebox.value)
+        self.assertNotIn('[', citebox.value)
+        self.assertNotIn(']', citebox.value)
+        
+        browser.find_by_id('plain').first.click()
+        cite = wait_until_filled(browser.find_by_id('fullcite').first)
+        self.assertIn('&#91;afterw.&#93; Mathews', cite)
+        
 
 def read_textbox(id):
     return browser.find_by_id(id).first.value
