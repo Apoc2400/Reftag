@@ -109,16 +109,17 @@ class TestGoogleBooks(unittest.TestCase):
         self.assertIn('University of Chicago Press;', cite)
         
     def test_harv(self):
-        pagebox = browser.find_by_id('pages').first
-        self.assertFalse(pagebox['disabled']);
-        self.assertIn('background-color: rgb(255, 255, 153);', pagebox['style']);
+        #pagebox = browser.find_by_id('pages').first
+        #self.assertFalse(pagebox['disabled']);
+        #self.assertIn('background-color: rgb(255, 255, 153);', pagebox['style']);
         
         browser.check('harv')
         cite = wait_until_filled(browser.find_by_id('fullcite').first)
         self.assertIn('|ref=harv', cite)
-        self.assertTrue(pagebox['disabled']);
-        self.assertEqual(pagebox.value, '');
-        self.assertNotIn('background-color', pagebox['style']);
+        self.assertNotIn('|page', cite)
+        #self.assertTrue(pagebox['disabled']);
+        #self.assertEqual(pagebox.value, '');
+        #self.assertNotIn('background-color', pagebox['style']);
         
         browser.choose('template', 'citation')
         cite = wait_until_filled(browser.find_by_id('fullcite').first)

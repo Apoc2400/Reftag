@@ -102,25 +102,23 @@ function string_contains(big, small)
 function makeCiteBook() {
   saveCookies();
   
-  var pagesbox = document.getElementById('pages');
-  if (document.getElementById('harv').checked) {
-    pagesbox.value = '';
-    pagesbox.disabled = true;
-    pagesbox.style.backgroundColor = '';
-  } else {
-    pagesbox.disabled = false;
+  var cite = '';
+  var harvmode = document.getElementById('harv').checked;
+  var harvcite = '{{harv|';
+  
+  if (!harvmode) {
+    cite += '<ref';
+    var refname = document.getElementById('refname').value;
+    if (/\S/.test(refname)) {
+      cite += ' name="' + refname + '"';
+    }
+    cite += '>';
   }
-
-  var cite = '<ref';
-  var refname = document.getElementById('refname').value;
-  if (/\S/.test(refname)) {
-    cite += ' name="' + refname + '"';
-  }
-  cite += '>{{';
+  cite += '{{';
   
   if (document.getElementById('cite_book').checked) {
     cite += 'cite book';
-    if (document.getElementById('harv').checked) {
+    if (harvmode) {
         cite += '|ref=harv'
     }
   }
@@ -145,10 +143,12 @@ function makeCiteBook() {
     }
     if (/\S/.test(last)) {
       authorcite = '|last' + i + '=' + last + '|first' + i + '=' + first + authorcite;
+      if (!prevauthor) harvcite += last
       prevauthor = 1;
     }
     else if (/\S/.test(author)) {
       authorcite = '|author' + i + '=' + author + authorcite;
+      if (!prevauthor) harvcite += author
       prevauthor = 1;
     }
   }
@@ -160,6 +160,7 @@ function makeCiteBook() {
     var value = document.getElementById(fieldname).value;
     if (/\S/.test(value) || fieldname == "title") {
       if (fieldname == "pages") {
+        if (harvmode) continue; //No pages in citation for Harvard style
         if (/^\w+$/.test(value)) {
           fieldname = "page";    //Use page= instead of pages= if only one page. Makes p. 5 instead of pp. 5.
         }
@@ -175,6 +176,15 @@ function makeCiteBook() {
       value = value.replace(/\]/g, '&#93;');
       cite += '|' + fieldname + '=' + value;
     }
+  }
+  
+  if (harvmode) {
+    date = document.getElementById('date').value;
+    year = formatDate(date, '<year>');
+    year = year.replace(/.*(\d\d\d\d).*/, '$1');
+    harvcite += '|' + year;
+    harvcite += '|p=}}';
+    cite = harvcite + '\n\n' + cite;
   }
   
   var otherfields = document.getElementById('otherfields').value;
@@ -212,10 +222,11 @@ function makeCiteBook() {
     }
   }
 
-  cite += "}}</ref>";
+  cite += '}}'
+  if (!harvmode) cite += '</ref>';
 
   if (document.getElementById('plain').checked) {
-    var match = /^(.*?)({{.*}})(.*?)$/.exec(cite);
+    var match = /^(.*?)({{[\s\S]*}})(.*?)$/m.exec(cite);
     if (match) {
       var citebeg = match[1];
       var citemid = match[2];
@@ -226,24 +237,24 @@ function makeCiteBook() {
       var url = 'expandtemplates.py?wikitext=' + urlencode(citemid,true);
       var xmlhttpExpand = new XMLHttpRequest();
       xmlhttpExpand.onreadystatechange=function() {
-	if(xmlhttpExpand.readyState==4) {	  
-	  var xmlDoc=xmlhttpExpand.responseXML.documentElement;
-	  var expanded = xmlDoc.getElementsByTagName("expandtemplates")[0].textContent;
-	  if (expanded == undefined) {
-	    expanded = xmlDoc.getElementsByTagName("expandtemplates")[0].childNodes[0].nodeValue;
-	  }
-	  expanded = expanded.replace(/<span.*?>/ig, '');
-	  expanded = expanded.replace(/<\/span>/ig, '');
-	  expanded = expanded.replace(/<nowiki\/?>/ig, '');
-	  expanded = expanded.replace(/\&\#32\;/ig, ' ');
-	  expanded = expanded.replace(/\&\#59\;/ig, ';');
-	  //expanded = expanded.replace(/\&\#91\;/ig, '[');
-	  //expanded = expanded.replace(/\&\#93\;/ig, ']');
-	  
-	  document.getElementById('fullcite').rows = 5;
-	  document.getElementById('fullcite').value = citebeg + expanded + citeend;
-          makePreview();
-	}
+        if(xmlhttpExpand.readyState==4) {	  
+          var xmlDoc=xmlhttpExpand.responseXML.documentElement;
+          var expanded = xmlDoc.getElementsByTagName("expandtemplates")[0].textContent;
+          if (expanded == undefined) {
+            expanded = xmlDoc.getElementsByTagName("expandtemplates")[0].childNodes[0].nodeValue;
+          }
+          expanded = expanded.replace(/<span.*?>/ig, '');
+          expanded = expanded.replace(/<\/span>/ig, '');
+          expanded = expanded.replace(/<nowiki\/?>/ig, '');
+          expanded = expanded.replace(/\&\#32\;/ig, ' ');
+          expanded = expanded.replace(/\&\#59\;/ig, ';');
+          //expanded = expanded.replace(/\&\#91\;/ig, '[');
+          //expanded = expanded.replace(/\&\#93\;/ig, ']');
+          
+          document.getElementById('fullcite').rows = 5;
+          document.getElementById('fullcite').value = citebeg + expanded + citeend;
+              makePreview();
+        }
       }
       xmlhttpExpand.open("GET",url,true);
       xmlhttpExpand.send(null);
