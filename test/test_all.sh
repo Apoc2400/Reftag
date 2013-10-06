@@ -10,7 +10,7 @@ fi
 
 echo "Running the test..."
 #python -m unittest test_with_browser test_jsonp_api
-nosetests
+nosetests --logging-level=WARNING
 
 if [ -z $REFTAG_SITE ]
 then
