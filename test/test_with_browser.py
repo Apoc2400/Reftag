@@ -229,8 +229,21 @@ class TestGoogleBooks(unittest.TestCase):
         self.assertNotIn(']', citebox.value)
         
         browser.find_by_id('plain').first.click()
-        cite = wait_until_filled(browser.find_by_id('fullcite').first)
-        self.assertIn('&#91;afterw.&#93; Mathews', cite)
+        wait_until_filled(citebox)
+        self.assertIn('&#91;afterw.&#93; Mathews', citebox.value)
+
+    def test_manual_oclc(self):
+        citebox = browser.find_by_id('fullcite').first
+        browser.fill('otherfields', 'oclc=1234567')
+        browser.find_by_value('Make citation').first.click()
+        self.assertIn('|oclc=1234567', citebox.value)
+        
+        browser.find_by_id('citation').first.click()
+        self.assertIn('|oclc=1234567', citebox.value)
+        
+        browser.find_by_id('plain').first.click()
+        wait_until_filled(citebox)
+        self.assertIn('OCLC 1234567', citebox.value)
         
 
 def read_textbox(id):

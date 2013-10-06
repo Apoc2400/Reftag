@@ -252,7 +252,7 @@ def main():
     <td colspan=3><input type="text" tabindex=1 style="width:50%%" id="accessdate"><input type="button" tabindex=1 value="<Today" onClick="setAccessDateToday()"></td></tr>
 
     <tr><td><label for="otherfields">Other&nbsp;fields:</label></td>
-    <td colspan=3><input type="text" tabindex=1 style="width:100%%" id="otherfields" value="%s"></td>
+    <td colspan=3><input type="text" tabindex=1 style="width:100%%" name="otherfields" id="otherfields" value="%s"></td>
     <td><label for="refname">&nbsp;Ref&nbsp;name: </label></td>
     <td colspan=3><input type="text" tabindex=1 style="width:100%%" id="refname"><!--<input type="button" tabindex=1 value="<Make" onClick="makeRefname()">--></td>
     </tr>
