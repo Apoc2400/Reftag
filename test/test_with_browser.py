@@ -253,6 +253,34 @@ class TestGoogleBooks(unittest.TestCase):
         preview = wait_until_filled(browser.find_by_id('previewSpan').first)
         self.assertIn('OCLC', preview)
 
+        
+class TestOclcWeb(unittest.TestCase):
+    def setUp(self):
+        browser.cookies.delete()
+        browser.visit(site)
+
+    def test_oclc_input(self):
+        oclc = '608542024'
+        browser.fill('book_url', oclc)
+        browser.find_by_value('Load').click()
+        
+        authorbox = browser.find_by_id('author1').first
+        self.assertEqual(authorbox.value, 'Iyan Igma')
+
+        self.assertEqual(browser.find_by_id('publisher').first.value, 'CreateSpace')
+        
+        isbn = browser.find_by_id('isbn').first.value
+        self.assertEqual(isbn, '978-1-4414-7656-2')
+        
+        citebox = browser.find_by_id('fullcite').first
+        self.assertIn('|title=It probably', citebox.value)
+        self.assertIn('|oclc=' + oclc, citebox.value)
+        
+        preview = wait_until_filled(browser.find_by_id('previewSpan').first)
+        self.assertIn('Iyan Igma (', preview)
+        self.assertIn('OCLC', preview)
+        self.assertIn('ISBN', preview)
+        
 
 
 def read_textbox(id):

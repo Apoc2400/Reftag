@@ -36,6 +36,8 @@ def getBookData(urlOrNum):
     if urlOrNum.isdigit():
         oclc = urlOrNum
         thisdict = worldcat_api.get_by_oclc(oclc)
+        if thisdict is None:
+            error('The OCLC number entered was not found.')
         return thisdict
 
 
@@ -138,8 +140,8 @@ def main():
     thisdict = getBookData(book_url)
     if thisdict is None:
         return
-    page = thisdict['page']
-    new_url = thisdict['new_url']
+    page = thisdict.get('page', '')
+    new_url = thisdict.get('new_url', '')
         
     #thisdict = {'embeddability': 'embeddable', 'info': 'http://books.google.com/books?id=9PE2T2a5fDYC&ie=ISO-8859-1&source=gbs_gdata', 'description': 'Ramon Sarr\xc3\xb3 explores an iconoclastic religious movement initiated by a Muslim preacher during the French colonial period. Employing an ethnographic approach that respects the testimony of those who suffered violence as opposed to those who wanted to "get rid of custom," this work discusses the extent to which iconoclasm produces a rupture of religious knowledge and identity and analyzes its relevance in the making of modern nations and citizens. The Politics of Religious Change on the Upper Guinea Coastexamines the historical complexity of the interface between Islam, traditional religions, and Christianity in West Africa, and how this interface connects to dramatic political change. The book unveils a rare history and brokers a dialogue between a long tradition of anthropology and contemporary anthropological debates. A wide range of readers, particularly those with an interest in the anthropology of religion, iconoclasm, the history and anthropology of West Africa, or the politics of heritage, will gravitate toward this work.', 'format': 'book', 'publishers': ['Edinburgh University Press'], 'identifiers': [('google_id', '9PE2T2a5fDYC'), ('ISBN', '0748635157'), ('ISBN', '9780748635153')], 'thumbnail': 'http://bks9.books.google.com/books?id=9PE2T2a5fDYC&printsec=frontcover&img=1&zoom=5&edge=curl&sig=ACfU3U0LyllDnVUHiadMIrdIuvVAiURtuQ&source=gbs_gdata', 'subjects': ['Iconoclasm', 'Guinea', 'Iconoclasm/ Guinea', 'Religion and politics', 'History / Europe / General', 'Social Science / Human Geography', 'Social Science / Ethnic Studies / General', 'Social Science / Customs & Traditions', 'Religion / Ethnic & Tribal', 'Religion / General', 'History / Africa / General', 'Religion / Comparative Religion', 'History / General', 'History / Africa / General', 'Religion / Ethnic & Tribal', 'Religion / Islam / General', 'Religion / Religion, Politics & State', 'Social Science / Human Geography', 'Social Science / Islamic Studies', 'Travel / Africa / General'], 'authors': ['Ramon Sarr\xc3\xb3', 'John Smith', 'Jane Smith', 'Olaus Petrus', 'Mick Paff'], 'date': '2009-05-03', 'title': 'The Politics of Religious Change on the Upper Guinea Coast: Iconoclasm Done and Undone', 'viewability': 'view_partial', 'annotation': 'http://www.google.com/books/feeds/users/me/volumes'}
 

@@ -3,7 +3,7 @@ from worldcat.request.xid import xOCLCNUMRequest, xISBNRequest
 
 #@memorise()
 def fetch_worldcat(kind, num):
-    print "fetch_worldcat running."
+    #print "fetch_worldcat running."
     if kind == 'oclc':
         return xOCLCNUMRequest(rec_num=num, method='getMetadata').get_response().data
     elif kind == 'isbn':
@@ -13,7 +13,10 @@ def fetch_worldcat(kind, num):
 
 def get_by_oclc(oclc):
     o = fetch_worldcat('oclc', oclc)
+    if o['stat'] != 'ok':
+        return
 
+    assert len(o['list']) == 1
     for i in o['list']:
         #print i
         for isbn in i['isbn']:
@@ -25,18 +28,25 @@ def get_by_oclc(oclc):
 
 def get_by_isbn(isbn):
     o = fetch_worldcat('isbn', isbn)
+    if o['stat'] != 'ok':
+        return
     
     assert len(o['list']) == 1
     data_dict = o['list'][0]
-    print data_dict
+    #print data_dict
 
     output = {}
 
-    fields = ['title', 'author']
+    fields = ['title']
     for field in fields:
         if field in data_dict:
             output[field] = data_dict[field]
             
+    if 'author' in data_dict:
+        author = data_dict['author']
+        author = author.partition('.')[0]
+        output['authors'] = [author]
+    
     if 'year' in data_dict:
         output['date'] = data_dict['year']
             
@@ -58,7 +68,8 @@ def get_by_isbn(isbn):
 
 
 if __name__ == "__main__":
-    print get_by_oclc(550538756)
+    #print get_by_oclc(550538756)
     #print get_by_oclc(222891799)
+    print get_by_oclc(608542024)
     
     
