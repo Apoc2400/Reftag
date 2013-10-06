@@ -208,6 +208,14 @@ class TestGoogleBooks(unittest.TestCase):
         browser.fill('book_url', 'foo')
         browser.find_by_value('Load').click()
         self.assertTrue(browser.is_text_present('Error: Not a Google Books URL.'))
+        
+        browser.fill('book_url', 'books.google.se/books?foo')
+        browser.find_by_value('Load').click()
+        self.assertTrue(browser.is_text_present('Error: Bad URL. It has to be for a specific book, not a search result page'))
+
+        browser.fill('book_url', 'books.google.se')
+        browser.find_by_value('Load').click()
+        self.assertTrue(browser.is_text_present('Error: Bad URL.'))
 
     def test_brackets(self):
         book_with_brackets = 'http://books.google.com/books?id=XvENAAAAQAAJ'
