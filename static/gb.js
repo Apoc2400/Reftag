@@ -282,7 +282,7 @@ function RSchange() {
     previewHTML = xmlDoc.getElementsByTagName("text")[0].childNodes[0].nodeValue;
   }
   //alert(previewHTML);
-  previewHTML = previewHTML.replace(/href="\//gi, 'href="http://en.wikipedia.org/');
+  previewHTML = previewHTML.replace(/href="\/([^\/])/gi, 'href="http://en.wikipedia.org/$1');
 
   document.getElementById('previewSpan').innerHTML = previewHTML;
   //alert(xmlhttp.responseText.length);
