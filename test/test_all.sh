@@ -9,7 +9,8 @@ then
 fi
 
 echo "Running the test..."
-python -m unittest test_with_browser test_jsonp_api
+#python -m unittest test_with_browser test_jsonp_api
+nosetests
 
 if [ -z $REFTAG_SITE ]
 then
