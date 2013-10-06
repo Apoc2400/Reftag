@@ -1,7 +1,18 @@
 from worldcat.request.xid import xOCLCNUMRequest, xISBNRequest
+from memorised.decorators import memorise
+
+@memorise()
+def fetch_worldcat(kind, num):
+    print "fetch_worldcat running."
+    if kind == 'oclc':
+        return xOCLCNUMRequest(rec_num=num, method='getMetadata').get_response().data
+    elif kind == 'isbn':
+        return xISBNRequest(rec_num=num, method='getMetadata').get_response().data
+    else:
+        assert False
 
 def get_by_oclc(oclc):
-    o = xOCLCNUMRequest(rec_num=oclc, method='getMetadata').get_response().data
+    o = fetch_worldcat('oclc', oclc)
 
     for i in o['list']:
         #print i
@@ -13,7 +24,7 @@ def get_by_oclc(oclc):
             return output
 
 def get_by_isbn(isbn):
-    o = xISBNRequest(rec_num=isbn, method='getMetadata').get_response().data
+    o = fetch_worldcat('isbn', isbn)
     
     assert len(o['list']) == 1
     data_dict = o['list'][0]
