@@ -1,7 +1,7 @@
 from worldcat.request.xid import xOCLCNUMRequest, xISBNRequest
-from memorised.decorators import memorise
+#from memorised.decorators import memorise
 
-@memorise()
+#@memorise()
 def fetch_worldcat(kind, num):
     print "fetch_worldcat running."
     if kind == 'oclc':

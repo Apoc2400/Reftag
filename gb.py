@@ -18,6 +18,7 @@ import cgitb; cgitb.enable()
 import re
 import urllib
 import sys
+import worldcat_api
 
 
 def printFooter():
@@ -32,6 +33,12 @@ def error(message):
 
 
 def getBookData(urlOrNum):
+    if urlOrNum.isdigit():
+        oclc = urlOrNum
+        thisdict = worldcat_api.get_by_oclc(oclc)
+        return thisdict
+
+
     book_url = urlOrNum
     #print "url:", book_url, "<br />"
     if not re.search('books.google.', book_url, re.I) and not re.search('\?id=', book_url, re.I):
