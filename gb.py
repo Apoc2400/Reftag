@@ -57,14 +57,14 @@ def getBookData(urlOrNum):
     book_url_qs_fields = cgi.parse_qs(book_url_qs)
     #print "book_url_qs_fields:", book_url_qs_fields, "<br />"
 
-    if not book_url_qs_fields.has_key("id"):
+    if "id" not in book_url_qs_fields:
         error('Bad URL. It has to be for a specific book, not a search result page')
         return
     book_id = book_url_qs_fields["id"][0]
     #print "book_id:", book_id, "<br />"
     page = ''
     page_string = ''
-    if book_url_qs_fields.has_key('pg'):
+    if 'pg' in book_url_qs_fields:
         page_string = book_url_qs_fields['pg'][0]
         match = re.search('\D*(\d+)', page_string)
         if match:
@@ -74,8 +74,6 @@ def getBookData(urlOrNum):
     new_url = 'http://books.google.com/books?id=' + urllib.quote_plus(book_id)
     if page_string:
         new_url += '&pg=' + urllib.quote_plus(page_string)
-    #if book_url_qs_fields.has_key('dq'):
-    #    new_url += '&dq=' + urllib.quote_plus(book_url_qs_fields['dq'][0])
 
     client = gdata.books.service.BookService()
     gdata.alt.appengine.run_on_appengine(client)
@@ -116,7 +114,7 @@ def main():
 
     book_url = ''
     form = cgi.FieldStorage()
-    if (form.has_key("book_url")):
+    if "book_url" in form:
         book_url = form["book_url"].value
 
 
@@ -130,7 +128,7 @@ def main():
               <input type="submit" value="Load" tabindex=1></input> &nbsp; &nbsp; <input type="button" tabindex=1 value="Clear" onClick="formClear();"> <!--Hej du!-->
               </form>""" % (cgi.escape(book_url, 1))
 
-    if not form.has_key("book_url"):
+    if "book_url" not in form:
         print """<hr><font color="DarkOliveGreen">Example book (copy and paste above):</font> http://books.google.com/books?id=aqmAc2fFsAUC&pg=PA90
             <p>Try also: <a href="doiweb.py">Wikipedia citation tool for DOI</a> or <a href="/nytweb.py">The New York Times</a>.<br />
             Also available from a user script: <a href="http://en.wikipedia.org/wiki/Wikipedia:RefToolbarPlus">refToolPlus</a>.</p>"""
@@ -148,10 +146,10 @@ def main():
     #print 'Got dict: ' + str(thisdict)+  '<br />'
 
     #print thisdict['title'], "<br />"
-    title = thisdict['title'] if thisdict.has_key('title') else ''
-    date = thisdict['date'] if thisdict.has_key('date') else ''
-    publisher = (', '.join(thisdict['publishers'])) if thisdict.has_key('publishers') else ''
-    authors = thisdict['authors'] if thisdict.has_key('authors') else ''
+    title = thisdict.get('title', '')
+    date = thisdict.get('date', '')
+    publisher = ', '.join(thisdict.get('publishers', []))
+    authors = thisdict.get('authors', '')
 
     isbn = ''
     issn = ''
@@ -159,7 +157,7 @@ def main():
     oclc = ''
     other_id_list = []
     otherfields = []
-    if thisdict.has_key('identifiers'):
+    if 'identifiers' in thisdict:
         for idpair in thisdict['identifiers']:
             if idpair[0].lower() == 'google_id':
                 pass
