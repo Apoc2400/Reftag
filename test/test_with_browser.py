@@ -245,6 +245,15 @@ class TestGoogleBooks(unittest.TestCase):
         wait_until_filled(citebox)
         self.assertIn('OCLC 1234567', citebox.value)
         
+        browser.find_by_id('cite_book').first.click()
+        browser.check('verbose')
+        browser.check('extraparams')
+        browser.check('harv')
+        self.assertIn('|oclc=1234567', citebox.value)
+        preview = wait_until_filled(browser.find_by_id('previewSpan').first)
+        self.assertIn('OCLC', preview)
+
+
 
 def read_textbox(id):
     return browser.find_by_id(id).first.value

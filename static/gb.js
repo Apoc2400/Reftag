@@ -94,6 +94,11 @@ function splitName(i) {
   }
 }
 
+function string_contains(big, small)
+{
+    return big.indexOf(small) != -1
+}
+
 function makeCiteBook() {
   saveCookies();
   
@@ -178,25 +183,33 @@ function makeCiteBook() {
   }
   
   if (document.getElementById('extraparams').checked) {
-    cite += '|authormask=';
+    extras = [];
+    extras.push('|authormask=');
     if (!document.getElementById('citation').checked) {
-      cite += '|trans_title=';
+      extras.push('|trans_title=');
     }
-    cite += '|format=';
-    cite += '|origyear=';
-    cite += '|oclc=';
-    cite += '|doi=';
-    cite += '|bibcode=';
-    cite += '|id=';
+    extras.push('|format=');
+    extras.push('|origyear=');
+    extras.push('|oclc=');
+    extras.push('|doi=');
+    extras.push('|bibcode=');
+    extras.push('|id=');
     if (/\S/.test(document.getElementById('chapter').value)) {
       if (!document.getElementById('citation').checked) {
-        cite += '|trans_chapter=';
+        extras.push('|trans_chapter=');
       } 
-      cite += '|chapterurl=';
+      extras.push('|chapterurl=');
     }
-    cite += '|quote=';
-    cite += '|laysummary=';
-    cite += '|laydate=';
+    extras.push('|quote=');
+    extras.push('|laysummary=');
+    extras.push('|laydate=');
+
+    var length = extras.length;
+    for (var i = 0; i < length; i++) {
+      if (!string_contains(cite, extras[i])) {
+          cite += extras[i]
+      }
+    }
   }
 
   cite += "}}</ref>";
