@@ -252,7 +252,7 @@ class TestGoogleBooks(unittest.TestCase):
         self.assertIn('|oclc=1234567', citebox.value)
         preview = wait_until_filled(browser.find_by_id('previewSpan').first)
         self.assertIn('OCLC', preview)
-
+        
         
 class TestOclcWeb(unittest.TestCase):
     def setUp(self):
@@ -281,6 +281,12 @@ class TestOclcWeb(unittest.TestCase):
         self.assertIn('OCLC', preview)
         self.assertIn('ISBN', preview)
         
+    def test_bad_oclc(self):
+        #Bad OCLC (actual an ISBN)
+        oclc = '1441476563'
+        browser.fill('book_url', oclc)
+        browser.find_by_value('Load').click()
+        self.assertTrue(browser.is_text_present('Error: The OCLC number entered was not found.'))
 
 
 def read_textbox(id):
