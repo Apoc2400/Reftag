@@ -73,6 +73,7 @@ class TestDoiWeb(unittest.TestCase):
 class TestGoogleBooks(unittest.TestCase):
 
     def setUp(self):
+        self.maxDiff = None
         browser.cookies.delete()
         browser.visit(site)
         browser.fill('book_url', 'http://books.google.com/books?id=aqmAc2fFsAUC&pg=PA90')
@@ -91,6 +92,11 @@ class TestGoogleBooks(unittest.TestCase):
         
         citebox = browser.find_by_id('fullcite').first
         self.assertIn('|title=On Hobos', citebox.value)
+        refstr = u'<ref name="Anderson1998">{{cite book|author=Nels Anderson|'\
+                 u'title=On Hobos and Homelessness|url=http://books.google.com/books?'\
+                 u'id=aqmAc2fFsAUC&pg=PA90|date=January 1998|publisher=University of '\
+                 u'Chicago Press|isbn=978-0-226-01966-6|pages=90\u2013}}</ref>'
+        self.assertEquals(citebox.value, refstr)
         
         preview = wait_until_filled(browser.find_by_id('previewSpan').first)
         self.assertIn('Nels Anderson (', preview)
@@ -109,21 +115,22 @@ class TestGoogleBooks(unittest.TestCase):
         self.assertIn('University of Chicago Press;', cite)
         
     def test_harv(self):
-        #pagebox = browser.find_by_id('pages').first
-        #self.assertFalse(pagebox['disabled']);
-        #self.assertIn('background-color: rgb(255, 255, 153);', pagebox['style']);
-        
         browser.check('harv')
         cite = wait_until_filled(browser.find_by_id('fullcite').first)
         self.assertIn('|ref=harv', cite)
         self.assertNotIn('|page', cite)
-        #self.assertTrue(pagebox['disabled']);
-        #self.assertEqual(pagebox.value, '');
-        #self.assertNotIn('background-color', pagebox['style']);
+        self.assertIn('{{harv|Nels Anderson|1998', cite)
+        refstr = u'{{harv|Nels Anderson|1998|p=}}\n\n'\
+                 u'{{cite book|ref=harv|author=Nels Anderson|title='\
+                 u'On Hobos and Homelessness|url=http://books.google.com/'\
+                 u'books?id=aqmAc2fFsAUC&pg=PA90|date=January 1998|publisher='\
+                 u'University of Chicago Press|isbn=978-0-226-01966-6}}'
+        self.assertEquals(cite, refstr)
         
         browser.choose('template', 'citation')
         cite = wait_until_filled(browser.find_by_id('fullcite').first)
         self.assertNotIn('|ref=harv', cite)
+        self.assertIn('{{harv|Nels Anderson|1998', cite)
 
         browser.choose('template', 'plain')
         cite = wait_until_filled(browser.find_by_id('fullcite').first)
