@@ -40,18 +40,18 @@ def get_by_isbn(isbn):
     fields = ['title']
     for field in fields:
         if field in data_dict:
-            output[field] = data_dict[field]
+            output[field] = data_dict[field].encode("utf-8")
             
     if 'author' in data_dict:
         author = data_dict['author']
         author = author.partition('.')[0]
-        output['authors'] = [author]
+        output['authors'] = [author.encode("utf-8")]
     
     if 'year' in data_dict:
         output['date'] = data_dict['year']
             
     if 'publisher' in data_dict:
-        output['publishers'] = [data_dict['publisher']]
+        output['publishers'] = [data_dict['publisher'].encode("utf-8")]
             
     identifiers = set()
     # First add the known isbn
