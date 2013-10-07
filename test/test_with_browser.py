@@ -297,6 +297,17 @@ class TestOclcWeb(unittest.TestCase):
         self.assertIn('OCLC', preview)
         self.assertIn('ISBN', preview)
         
+    def test_other_oclc(self):
+        browser.fill('book_url', 4488481)
+        browser.find_by_value('Load').click()
+        citebox = browser.find_by_id('fullcite').first
+        self.assertIn('Prognosinstitutet', citebox.value)
+        
+    def test_oclc_41271560(self):
+        browser.fill('book_url', 41271560)
+        browser.find_by_value('Load').click()
+        
+        
     def test_bad_oclc(self):
         #Bad OCLC (actual an ISBN)
         oclc = '1441476563'
