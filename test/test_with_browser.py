@@ -306,7 +306,8 @@ class TestOclcWeb(unittest.TestCase):
     def test_oclc_41271560(self):
         browser.fill('book_url', 41271560)
         browser.find_by_value('Load').click()
-        
+        citebox = browser.find_by_id('fullcite').first
+        self.assertIn('|author1=Michael Wielsch|author2=Jens Prahm|', citebox.value)
         
     def test_bad_oclc(self):
         #Bad OCLC (actual an ISBN)

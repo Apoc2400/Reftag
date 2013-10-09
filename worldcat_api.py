@@ -1,4 +1,5 @@
 from worldcat.request.xid import xOCLCNUMRequest, xISBNRequest
+import re
 #from memorised.decorators import memorise
 
 #@memorise()
@@ -33,7 +34,7 @@ def get_by_isbn(isbn):
     
     assert len(o['list']) == 1
     data_dict = o['list'][0]
-    #print data_dict
+    #print "DICT:" + repr(data_dict) + '\n'
 
     output = {}
 
@@ -45,7 +46,10 @@ def get_by_isbn(isbn):
     if 'author' in data_dict:
         author = data_dict['author']
         author = author.partition('.')[0]
-        output['authors'] = [author.encode("utf-8")]
+        # Remove brackets and anything outside them
+        author = re.sub(r'^.*?\[(.*?)\].*', r'\1', author)
+        authors = author.split(',')
+        output['authors'] = [a.strip().encode("utf-8") for a in authors]
     
     if 'year' in data_dict:
         output['date'] = data_dict['year']

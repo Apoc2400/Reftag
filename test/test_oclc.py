@@ -38,6 +38,11 @@ class TestOclc(unittest.TestCase):
         identifiers = info['identifiers']
         self.assertIn(('oclc', '222891799'), identifiers)
         self.assertIn(('isbn', isbn), identifiers)
+        
+    def test_oclc_41271560(self):
+        #'author': u'[Michael Wielsch, Jens Prahm] ; [trad. Liger Fran\xe7ois, Wolf Pierre M., Springinsfeld Serge].'
+        info = get_by_oclc(41271560)
+        self.assertEquals(info['authors'], ['Michael Wielsch', 'Jens Prahm'])
 
     def test_bad_oclc(self):
         #Bad OCLC (actual an ISBN)
