@@ -308,7 +308,9 @@ class TestOclcWeb(unittest.TestCase):
         browser.find_by_value('Load').click()
         citebox = browser.find_by_id('fullcite').first
         self.assertIn('|author1=Michael Wielsch|author2=Jens Prahm|', citebox.value)
-        
+        self.assertIn('|oclc=41271560', citebox.value)
+        self.assertEqual(citebox.value.count('oclc'), 1)
+
     def test_oclc_22239204(self):
         # Book found, but no data
         browser.fill('book_url', 22239204)

@@ -159,7 +159,8 @@ def main():
     other_id_list = []
     otherfields = []
     if 'identifiers' in thisdict:
-        for idpair in thisdict['identifiers']:
+        unique_identifiers = dict(thisdict['identifiers'])
+        for idpair in unique_identifiers.iteritems():
             if idpair[0].lower() == 'google_id':
                 pass
             elif idpair[0].lower() == 'isbn':

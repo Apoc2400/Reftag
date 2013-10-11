@@ -25,7 +25,9 @@ def get_by_oclc(oclc):
         for isbn in i['isbn']:
             #print isbn
             output = get_by_isbn(isbn)
-            # First the known oclc, in case it is not returned from WorldCat
+            # Remove other OCLC
+            output['identifiers'] = set(p for p in output['identifiers'] if p[0] != 'oclc')
+            # The known oclc, in case it is not returned from WorldCat
             output['identifiers'].add(('oclc', str(oclc)))
             return output
 
