@@ -44,6 +44,14 @@ class TestOclc(unittest.TestCase):
         info = get_by_oclc(41271560)
         self.assertEquals(info['authors'], ['Michael Wielsch', 'Jens Prahm'])
 
+    def test_oclc_22239204(self):
+        # Book found, but no data
+        oclc = 22239204
+        info = get_by_oclc(oclc)
+        self.assertIn(('oclc', str(oclc)), info['identifiers'])
+        self.assertNotIn('authors', info)
+        self.assertNotIn('title', info)
+
     def test_bad_oclc(self):
         #Bad OCLC (actual an ISBN)
         oclc = '1441476563'

@@ -20,6 +20,8 @@ def get_by_oclc(oclc):
     assert len(o['list']) == 1
     for i in o['list']:
         #print i
+        if 'isbn' not in i:
+            return {'identifiers': set([('oclc', str(oclc))])}
         for isbn in i['isbn']:
             #print isbn
             output = get_by_isbn(isbn)

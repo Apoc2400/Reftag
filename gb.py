@@ -82,7 +82,6 @@ def getBookData(urlOrNum):
     try:
         thisbook = client.get_by_google_id(book_id)    # '8cp-Z_G42g4C'
         thisdict = thisbook.to_dict()
-        #sys.stderr.write('thisdict = ' + repr(thisdict) + '\n')
         thisdict['page'] = page
         thisdict['new_url'] = new_url
         return thisdict
@@ -139,6 +138,7 @@ def main():
     thisdict = getBookData(book_url)
     if thisdict is None:
         return
+    #sys.stderr.write('thisdict = ' + repr(thisdict) + '\n')
     page = thisdict.get('page', '')
     new_url = thisdict.get('new_url', '')
         
