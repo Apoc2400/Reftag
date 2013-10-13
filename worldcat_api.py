@@ -1,20 +1,24 @@
 from worldcat.request.xid import xOCLCNUMRequest, xISBNRequest
 import re
+from urllib2 import HTTPError
 #from memorised.decorators import memorise
 
 #@memorise()
 def fetch_worldcat(kind, num):
     #print "fetch_worldcat running."
-    if kind == 'oclc':
-        return xOCLCNUMRequest(rec_num=num, method='getMetadata').get_response().data
-    elif kind == 'isbn':
-        return xISBNRequest(rec_num=num, method='getMetadata').get_response().data
-    else:
-        assert False
+    try:
+        if kind == 'oclc':
+            return xOCLCNUMRequest(rec_num=num, method='getMetadata').get_response().data
+        elif kind == 'isbn':
+            return xISBNRequest(rec_num=num, method='getMetadata').get_response().data
+        else:
+            assert False
+    except HTTPError:
+        return None
 
 def get_by_oclc(oclc):
     o = fetch_worldcat('oclc', oclc)
-    if o['stat'] != 'ok':
+    if o is None or 'stat' not in o or o['stat'] != 'ok':
         return
 
     assert len(o['list']) == 1
@@ -33,7 +37,7 @@ def get_by_oclc(oclc):
 
 def get_by_isbn(isbn):
     o = fetch_worldcat('isbn', isbn)
-    if o['stat'] != 'ok':
+    if o is None or 'stat' not in o or o['stat'] != 'ok':
         return
     
     assert len(o['list']) == 1

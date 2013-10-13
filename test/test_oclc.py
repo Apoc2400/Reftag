@@ -51,6 +51,12 @@ class TestOclc(unittest.TestCase):
         self.assertIn(('oclc', str(oclc)), info['identifiers'])
         self.assertNotIn('authors', info)
         self.assertNotIn('title', info)
+        
+    def test_oclc_2340417(self):
+        # Returns an HTTP error
+        oclc = 2340417
+        info = get_by_oclc(oclc)
+        self.assertIsNone(info)
 
     def test_bad_oclc(self):
         #Bad OCLC (actual an ISBN)
