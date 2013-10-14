@@ -1,5 +1,6 @@
 from worldcat.request.xid import xOCLCNUMRequest, xISBNRequest
 import re
+import sys
 from urllib2 import HTTPError
 #from memorised.decorators import memorise
 
@@ -18,6 +19,7 @@ def fetch_worldcat(kind, num):
 
 def get_by_oclc(oclc):
     o = fetch_worldcat('oclc', oclc)
+    #sys.stderr.write('o = ' + repr(o) + '\n')
     if o is None or 'stat' not in o or o['stat'] != 'ok':
         return
 
@@ -37,6 +39,7 @@ def get_by_oclc(oclc):
 
 def get_by_isbn(isbn):
     o = fetch_worldcat('isbn', isbn)
+    #sys.stderr.write('o = ' + repr(o) + '\n')
     if o is None or 'stat' not in o or o['stat'] != 'ok':
         return
     
@@ -53,9 +56,11 @@ def get_by_isbn(isbn):
             
     if 'author' in data_dict:
         author = data_dict['author']
-        author = author.partition('.')[0]
+        author = re.sub(r'ed\. by ', '', author)
+        author = re.split(r'(?<!\s\w)\.', author)[0]
         # Remove brackets and anything outside them
         author = re.sub(r'^.*?\[(.*?)\].*', r'\1', author)
+        #sys.stderr.write('author = ' + repr(author) + '\n')
         authors = author.split(',')
         output['authors'] = [a.strip().encode("utf-8") for a in authors]
     

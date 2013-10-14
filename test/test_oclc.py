@@ -44,6 +44,11 @@ class TestOclc(unittest.TestCase):
         info = get_by_oclc(41271560)
         self.assertEquals(info['authors'], ['Michael Wielsch', 'Jens Prahm'])
 
+    def test_oclc_35883297(self):
+        #'author': 'ed. by Kenneth T. MacKay'
+        info = get_by_oclc(35883297)
+        self.assertEquals(info['authors'], ['Kenneth T. MacKay'])
+
     def test_oclc_22239204(self):
         # Book found, but no data
         oclc = 22239204
