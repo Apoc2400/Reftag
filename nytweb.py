@@ -15,7 +15,6 @@ def error(message):
     sys.stderr.write(message + "\n")
     print '<span id="citespan"><hr><font color="red">', cgi.escape(message, 1), "</font></span>"
     printFooter()
-    exit()
 
 def main():
     print 'Content-Type: text/html; charset=utf-8'
@@ -51,9 +50,12 @@ def main():
     url = re.sub('\?.*$', '', url)    #Remove from the question mark
     if not re.search('^http:\/\/[^\/]*nytimes\.com\/', url, re.I):
         error('Not a New York Times URL.')
+        return
     citedata = nytimesFetchInfo(url)
     if not citedata:
+        sys.stderr.write("\ncitedata=" + repr(citedata) + "\n")
         error('No information returned by NYTimes API.')
+        return
     
     cite = ''
     refname = ''
