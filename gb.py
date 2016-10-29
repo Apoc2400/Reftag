@@ -71,7 +71,7 @@ def getBookData(urlOrNum):
             page = match.group(1) + u"\u2013".encode("utf-8")
 
 
-    new_url = 'http://books.google.com/books?id=' + urllib.quote_plus(book_id)
+    new_url = 'https://books.google.com/books?id=' + urllib.quote_plus(book_id)
     if page_string:
         new_url += '&pg=' + urllib.quote_plus(page_string)
 
