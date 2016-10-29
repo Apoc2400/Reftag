@@ -15,7 +15,7 @@ def main():
     wikitext = form["wikitext"].value
 
     querystring = urllib.urlencode([('text', wikitext)])
-    url = "http://en.wikipedia.org/w/api.php?action=expandtemplates&format=xml&" + querystring
+    url = "http://en.wikipedia.org/w/api.php?action=expandtemplates&format=xml&prop=wikitext&" + querystring
 
     xmldata = cachedFetch(url, 3600)
     if not xmldata == '':
